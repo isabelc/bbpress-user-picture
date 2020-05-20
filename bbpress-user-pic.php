@@ -75,7 +75,6 @@ class WP_User_Avatar_Setup {
     require_once(WPUA_INC.'class-wp-user-avatar-subscriber.php');
     require_once(WPUA_INC.'class-wp-user-avatar-update.php');
     require_once(WPUA_INC.'class-wp-user-avatar-widget.php');
-    require_once(WPUA_INC.'mo-notice.php');
     
     // Load TinyMCE only if enabled
     if((bool) $wpua_tinymce == 1) {
