@@ -21,9 +21,7 @@
  * @uses wp_get_sites()
  */
 
-if(!defined('WP_UNINSTALL_PLUGIN')) {
-  die('You are not allowed to call this page directly.');
-}
+if(!defined('WP_UNINSTALL_PLUGIN')) exit;
 
 global $blog_id, $wpdb;
 $users = get_users();

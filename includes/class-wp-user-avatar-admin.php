@@ -13,7 +13,6 @@ class WP_User_Avatar_Admin {
    * @uses bool $show_avatars
    * @uses add_action()
    * @uses add_filter()
-   * @uses load_plugin_textdomain()
    * @uses register_activation_hook()
    * @uses register_deactivation_hook()
    */
@@ -23,9 +22,6 @@ class WP_User_Avatar_Admin {
     register_activation_hook(WPUA_DIR.'wp-user-avatar.php', array($this, 'wpua_options'));
     // Settings saved to wp_options
     add_action('admin_init', array($this, 'wpua_options'));
-    // Remove subscribers edit_posts capability
-    // Translations
-    load_plugin_textdomain('wp-user-avatar', "", WPUA_FOLDER.'/lang');
     // Admin menu settings
     add_action('admin_menu', array($this, 'wpua_admin'));
     add_action('admin_init', array($this, 'wpua_register_settings'));
@@ -110,9 +106,9 @@ class WP_User_Avatar_Admin {
    * @uses add_submenu_page()
    */
   public function wpua_admin() {
-    add_menu_page(__('WP User Avatar', 'wp-user-avatar'), __('Avatars', 'wp-user-avatar'), 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), WPUA_URL.'images/wpua-icon.png');
-    add_submenu_page('wp-user-avatar', __('Settings' , 'wp-user-avatar'), __('Settings' , 'wp-user-avatar'), 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'));
-    $hook = add_submenu_page('wp-user-avatar', __('Library','wp-user-avatar'), __('Library', 'wp-user-avatar'), 'manage_options', 'wp-user-avatar-library', array($this, 'wpua_media_page'));
+    add_menu_page('WP User Avatar', 'Avatars', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), WPUA_URL.'images/wpua-icon.png');
+    add_submenu_page('wp-user-avatar', 'Settings', 'Settings', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'));
+    $hook = add_submenu_page('wp-user-avatar', 'Library', 'Library', 'manage_options', 'wp-user-avatar-library', array($this, 'wpua_media_page'));
     add_action("load-$hook", array($this, 'wpua_media_screen_option'));
     add_filter('set-screen-option', array($this, 'wpua_set_media_screen_option'), 10, 3);
   }
