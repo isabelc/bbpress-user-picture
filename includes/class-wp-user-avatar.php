@@ -152,7 +152,6 @@ class WP_User_Avatar {
    */
   public static function wpua_action_show_user_profile($user) {
     global $blog_id, $current_user, $show_avatars, $wpdb, $wp_user_avatar, $wpua_allow_upload, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit_with_units;
-	  
     $has_wp_user_avatar = has_wp_user_avatar(@$user->ID);
     // Get WPUA attachment ID
     $wpua = get_user_meta(@$user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);
@@ -223,6 +222,10 @@ class WP_User_Avatar {
       $size = $_FILES['wpua-file']['size'];
       $type = $_FILES['wpua-file']['type'];
       $upload_dir = wp_upload_dir();
+      if($_FILES['wpua-file']['error'] && empty($size) && empty($type)) {
+        $errors->add('wpua_file_size', 'Please try again. Image cannot be larger than 2MB. It must be either a JPEG, PNG, or GIF.');
+        return;
+      }
       // Allow only JPG, GIF, PNG
       if(!empty($type) && !preg_match('/(jpe?g|gif|png)$/i', $type)) {
         $errors->add('wpua_file_type', __('This file is not an image. Please try another.','wp-user-avatar'));
@@ -334,7 +337,7 @@ class WP_User_Avatar {
         update_user_meta($user_id, $wpdb->get_blog_prefix($blog_id).'user_avatar', "");
       }
       // Create attachment from upload
-      if(isset($_POST['submit']) && $_POST['submit'] && !empty($_FILES['wpua-file'])) {
+      if(isset($_POST['submit']) && $_POST['submit'] && !empty($_FILES['wpua-file']) && empty($_FILES['wpua-file']['error'])) {
         $name = $_FILES['wpua-file']['name'];
         $file = wp_handle_upload($_FILES['wpua-file'], array('test_form' => false));
         $type = $_FILES['wpua-file']['type'];
@@ -410,7 +413,6 @@ class WP_User_Avatar {
         }
       }
     }
-	
   }
 
   /**
