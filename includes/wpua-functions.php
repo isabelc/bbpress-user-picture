@@ -85,8 +85,7 @@ function wpua_do_before_avatar() {
   $wpua_profile_title = apply_filters('wpua_profile_title', $wpua_profile_title);
 ?>
   <?php if(class_exists('bbPress') && bbp_is_edit()) : // Add to bbPress profile with same style ?>
-    <h2 class="entry-title"><?php _e('Avatar','wp-user-avatar'); ?></h2>
-    <fieldset class="bbp-form">
+    <fieldset id="bbp-user-pic" class="bbp-form">
       <legend><?php _e('Image','wp-user-avatar'); ?></legend>
   <?php elseif(class_exists('WPUF_Main') && wpuf_has_shortcode('wpuf_editprofile')) : // Add to WP User Frontend profile with same style ?>
     <fieldset>
