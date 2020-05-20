@@ -1,18 +1,15 @@
 <?php
 /*
-Plugin Name: WP User Avatar
-Plugin URI: http://wordpress.org/plugins/wp-user-avatar/
-Description: Use any image from your WordPress Media Library as a custom user avatar. Add your own Default Avatar.
-Author: ProfilePress
-Author URI: https://profilepress.net/
-Version: 2.2.6
-Text Domain: wp-user-avatar
-Domain Path: /lang/
+Plugin Name: bbPress User Picture
+Description: Let bbPress forum users upload their own profile image.
+Version: 0.1.alpha-1
+Requires PHP: 7.2
+Author: Isabel Castillo
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-if(!defined('ABSPATH')) {
-  die('You are not allowed to call this page directly.');
-}
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Let's get started!

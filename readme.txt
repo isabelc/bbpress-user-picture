@@ -1,14 +1,15 @@
-=== WP User Avatar | User Profile Picture ===
+=== bbPress User Picture ===
 
-Contributors: properfraction, collizo4sky
-Tags: user profile, avatar, gravatar, author image, author photo, author avatar, bbPress, profile avatar, profile image, user avatar, user image, user photo, widget
+Contributors: properfraction, collizo4sky, isabel104
+Tags: user picture, bbPress, bbPress picture, user image, user photo, user avatar
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 2.2.6
+Tested up to: 5.4.1
+Requires PHP: 7.2
+Stable tag: 0,1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-Use any image from your WordPress Media Library as a custom user avatar or user profile picture. Add your own Default Avatar.
+ 
+Let bbPress forum users upload their own profile image.
 
 == Description ==
 
@@ -26,8 +27,6 @@ WordPress currently only allows you to use custom avatars that are uploaded thro
 * Limit upload file size and image dimensions for Contributors and Subscribers.
 
 == Installation ==
-
-Visit [WP User Avatar](http://www.wpuseravatar.com/) for more information and documentation.
 
 1. Download, install, and activate the WP User Avatar plugin.
 2. On your profile edit page, click "Edit Image".
