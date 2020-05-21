@@ -21,9 +21,6 @@ WordPress currently only allows you to use custom avatars that are uploaded thro
 * Upload your own Default Avatar in your WP User Avatar settings.
 * Show the user's [Gravatar](http://gravatar.com/) avatar or Default Avatar if the user doesn't have a WP User Avatar image.
 * Disable [Gravatar](http://gravatar.com/) avatars and use only local avatars.
-* Use the <code>[avatar_upload]</code> shortcode to add a standalone uploader to a front page or widget. This uploader is only visible to logged-in users.
-* Use the <code>[avatar]</code> shortcode in your posts. These shortcodes will work with any theme, whether it has avatar support or not.
-* Allow Contributors and Subscribers to upload their own avatars.
 * Limit upload file size and image dimensions for Contributors and Subscribers.
 
 == Installation ==
@@ -34,7 +31,7 @@ WordPress currently only allows you to use custom avatars that are uploaded thro
 4. Click "Update Profile".
 5. Upload your own Default Avatar in your WP User Avatar settings (optional). You can also allow Contributors & Subscribers to upload avatars and disable Gravatar.
 6. Choose a theme that has avatar support. In your theme, manually replace <code>get_avatar</code> with <code>get_wp_user_avatar</code> or leave <code>get_avatar</code> as-is. [Read about the differences here](http://wordpress.org/extend/plugins/wp-user-avatar/faq/).
-7. You can also use the <code>[avatar_upload]</code> and <code>[avatar]</code> shortcodes in your posts. These shortcodes will work with any theme, whether it has avatar support or not.
+
 
 **Example Usage**
 
@@ -91,26 +88,6 @@ Replace this function with:
 For comments, you must specify the $comment variable.
 
 **Other Available Functions**
-
-= [avatar_upload] shortcode =
-
-You can use the <code>[avatar_upload]</code> shortcode to add a standalone uploader to a front page or widget. This uploader is only visible to logged-in users. If you want to integrate the uploader into a profile edit page, see [Other Notes](http://wordpress.org/plugins/wp-user-avatar/other_notes/).
-
-You can specify a user with the shortcode, but you must have <code>edit_user</code> capability for that particular user.
-
-`[avatar_upload user="admin"]`
-
-= [avatar] shortcode =
-
-You can use the <code>[avatar]</code> shortcode in your posts. It will detect the author of the post or you can specify an author by username. You can specify a size, alignment, and link, but they are optional. For links, you can link to the original image file, attachment page, or a custom URL.
-
-`[avatar user="admin" size="medium" align="left" link="file" /]`
-
-You can also add a caption to the shortcode:
-
-`[avatar user="admin" size="medium" align="left" link="file"]Photo Credit: Your Name[/avatar]`
-
-**Note:** If you are using one shortcode without a caption and another shortcode with a caption on the same page, you must close the caption-less shortcode with a forward slash before the closing bracket: <code>[avatar /]</code> instead of <code>[avatar]</code>
 
 = get_wp_user_avatar_src =
 
@@ -185,41 +162,6 @@ No, BuddyPress has its own custom avatar functions and WP User Avatar will overr
 
 For Administrators, WP User Avatar adds a column with avatar thumbnails to your Users list table. If "Show Avatars" is enabled in your WP User Avatar settings, you will see avatars to the left of each username instead of in a new column.
 
-= Can I use the WP User Avatar uploader in a front page or widget? =
-
-Yes, you can use the <code>[avatar_upload]</code> shortcode to put a standalone uploader in a front page or widget. This uploader is only visible to logged-in users. If you want to integrate the uploader into a profile edit page, see [Other Notes](http://wordpress.org/plugins/wp-user-avatar/other_notes/).
-
-You can specify a user with the shortcode, but you must have <code>'edit_user'</code> capability to change the user's avatar.
-
-`[avatar_upload user="admin"]`
-
-= Can I insert WP User Avatar directly into a post? =
-
-You can use the <code>[avatar]</code> shortcode in your posts. It will detect the author of the post or you can specify an author by username. You can specify a size, alignment, and link, but they are optional. For links, you can link to the original image file, attachment page, or a custom URL.
-
-`[avatar user="admin" size="96" align="left" link="file" /]`
-
-Outputs:
-
-`<a href="{fileURL}" class="wp-user-avatar-link wp-user-avatar-file">
-  <img src="{imageURL}" width="96" height="96" class="wp-user-avatar wp-user-avatar-96 alignleft" />
-</a>`
-
-If you have a caption, the output will be similar to how WordPress adds captions to other images.
-
-`[avatar user="admin" size="96" align="left" link="file"]Photo Credit: Your Name[/avatar]`
-
-Outputs:
-
-`<div style="width: 106px" class="wp-caption alignleft">
-  <a href="{fileURL}" class="wp-user-avatar-link wp-user-avatar-file">
-    <img src="{imageURL}" width="96" height="96" class="wp-user-avatar wp-user-avatar-96" />
-  </a>
-  <p class="wp-caption-text">Photo Credit: Your Name</p>
-</div>`
-
-**Note:** If you are using one shortcode without a caption and another shortcode with a caption on the same page, you must close the caption-less shortcode with a forward slash before the closing bracket: <code>[avatar /]</code> instead of <code>[avatar]</code>
-
 = What CSS can I use with WP User Avatar? =
 
 WP User Avatar will add the CSS classes "wp-user-avatar" and "wp-user-avatar-{size}" to your image. If you add an alignment, the corresponding alignment class will be added:
@@ -242,20 +184,6 @@ Outputs:
 
 **Note:** WordPress adds more CSS classes to the avatar not listed here.
 
-If you use the <code>[avatar]</code> shortcode, WP User Avatar will add the CSS class "wp-user-avatar-link" to the link. It will also add CSS classes based on link type.
-
-* Image File: wp-user-avatar-file
-* Attachment: wp-user-avatar-attachment
-* Custom URL: wp-user-avatar-custom
-
-`[avatar user="admin" size="96" align="left" link="attachment" /]`
-
-Outputs:
-
-`<a href="{attachmentURL}" class="wp-user-avatar-link wp-user-avatar-attachment">
-  <img src="{imageURL}" width="96" height="96" class="wp-user-avatar wp-user-avatar-96 alignleft" />
-</a>`
-
 = What other functions are available for WP User Avatar? =
 * <code>get_wp_user_avatar_src</code>: retrieves just the image URL
 * <code>has_wp_user_avatar</code>: checks if the user has a WP User Avatar image
@@ -266,8 +194,6 @@ Outputs:
 Visit [WP User Avatar](http://wpuseravatar.com/) for more information and documentation.
 
 = Add WP User Avatar to your own profile edit page =
-
-You can use the [avatar_upload] shortcode to add a standalone uploader to any page. It's best to use this uploader by itself and without other profile fields.
 
 If you're building your own profile edit page with other fields, WP User Avatar is automatically added to the [show_user_profile](http://codex.wordpress.org/Plugin_API/Action_Reference/show_user_profile) and [edit_user_profile](http://codex.wordpress.org/Plugin_API/Action_Reference/show_user_profile) hooks. If you'd rather have WP User Avatar in its own section, you could add another hook:
 
