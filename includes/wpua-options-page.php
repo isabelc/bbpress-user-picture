@@ -19,7 +19,6 @@
  * @uses bool $wpua_resize_upload
  * @uses int $wpua_resize_w
  * @uses object $wpua_subscriber
- * @uses bool $wpua_tinymce
  * @uses int $wpua_upload_size_limit
  * @uses string $wpua_upload_size_limit_with_units
  * @uses admin_url()
@@ -33,7 +32,7 @@
  * @uses wpua_add_default_avatar()
  */
 
-global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_allow_upload, $wpua_disable_gravatar, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_h, $wpua_resize_upload, $wpua_resize_w, $wpua_subscriber, $wpua_tinymce, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
+global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_allow_upload, $wpua_disable_gravatar, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_h, $wpua_resize_upload, $wpua_resize_w, $wpua_subscriber, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
 $updated = false;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
   $updated = true;
@@ -74,12 +73,6 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
           <?php
             // Format settings in fieldsets
             $wpua_settings = array();
-            $wpua_settings['tinymce'] = '<fieldset>
-              <label for="wp_user_avatar_tinymce">
-                <input name="wp_user_avatar_tinymce" type="checkbox" id="wp_user_avatar_tinymce" value="1" '.checked($wpua_tinymce, 1, 0).' />'
-                .__('Add avatar button to Visual Editor', 'wp-user-avatar').'
-              </label>
-            </fieldset>';
             $wpua_settings['upload'] ='<fieldset>
               <label for="wp_user_avatar_allow_upload">
                 <input name="wp_user_avatar_allow_upload" type="checkbox" id="wp_user_avatar_allow_upload" value="1" '.checked($wpua_allow_upload, 1, 0).' />'
@@ -121,7 +114,7 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
                 <span id="wpua-readable-size">'.$wpua_upload_size_limit_with_units.'</span>
                 <span id="wpua-readable-size-error">'.sprintf(__('%s exceeds the maximum upload size for this site.','wp-user-avatar'), "").'</span>
                 <div id="wpua-slider"></div>
-                <span class="description">'.sprintf(__('Maximum upload file size: %d%s.','wp-user-avatar'), esc_html(wp_max_upload_size()), esc_html(' bytes ('.$upload_size_limit_with_units.')')).'</span>
+                <span class="description">'.sprintf('Maximum upload file size: %d%s.', esc_html(wp_max_upload_size()), esc_html(' bytes ('.$upload_size_limit_with_units.')')).'</span>
               </fieldset>
               <fieldset>
                 <label for="wp_user_avatar_edit_avatar">

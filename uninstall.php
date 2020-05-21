@@ -45,7 +45,6 @@ if(is_multisite()) {
     delete_option('wp_user_avatar_resize_h');
     delete_option('wp_user_avatar_resize_upload');
     delete_option('wp_user_avatar_resize_w');
-    delete_option('wp_user_avatar_tinymce');
     delete_option('wp_user_avatar_upload_size_limit');
     delete_option('wp_user_avatar_default_avatar_updated');
     delete_option('wp_user_avatar_media_updated');
@@ -65,7 +64,6 @@ if(is_multisite()) {
   delete_option('wp_user_avatar_resize_h');
   delete_option('wp_user_avatar_resize_upload');
   delete_option('wp_user_avatar_resize_w');
-  delete_option('wp_user_avatar_tinymce');
   delete_option('wp_user_avatar_upload_size_limit');
   delete_option('wp_user_avatar_default_avatar_updated');
   delete_option('wp_user_avatar_media_updated');

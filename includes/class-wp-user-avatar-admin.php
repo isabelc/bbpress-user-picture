@@ -56,7 +56,6 @@ class WP_User_Avatar_Admin {
     add_option('wp_user_avatar_resize_h', '96');
     add_option('wp_user_avatar_resize_upload', '0');
     add_option('wp_user_avatar_resize_w', '96');
-    add_option('wp_user_avatar_tinymce', '1');
     add_option('wp_user_avatar_upload_size_limit', '0');	
 
     if(wp_next_scheduled( 'wpua_has_gravatar_cron_hook' )){
@@ -182,7 +181,6 @@ class WP_User_Avatar_Admin {
     $settings[] = register_setting('wpua-settings-group', 'avatar_default');
     $settings[] = register_setting('wpua-settings-group', 'avatar_default_wp_user_avatar');
     $settings[] = register_setting('wpua-settings-group', 'show_avatars', 'intval');
-    $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_tinymce', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_allow_upload', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_disable_gravatar', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', 'intval');

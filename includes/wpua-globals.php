@@ -24,7 +24,6 @@ global $avatar_default,
        $wpua_resize_h,
        $wpua_resize_upload,
        $wpua_resize_w,
-       $wpua_tinymce,
        $mustache_original,
        $mustache_medium,
        $mustache_thumbnail,
@@ -58,8 +57,6 @@ $wpua_disable_gravatar = get_option('wp_user_avatar_disable_gravatar');
 $wpua_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 $wpua_resize_crop = get_option('wp_user_avatar_resize_crop');
 $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
-$wpua_tinymce = get_option('wp_user_avatar_tinymce');
-
 // Resize dimensions
 $wpua_resize_h = get_option('wp_user_avatar_resize_h');
 $wpua_resize_w = get_option('wp_user_avatar_resize_w');

@@ -2,7 +2,7 @@
 /*
 Plugin Name: bbPress User Picture
 Description: Let bbPress forum users upload their own profile image.
-Version: 0.1.alpha-2
+Version: 0.1.alpha-3
 Requires PHP: 7.2
 Author: Isabel Castillo
 License: GPL v2 or later
@@ -60,12 +60,8 @@ class WP_User_Avatar_Setup {
 
   /**
    * Load WP User Avatar
-   * @since 1.9.2
-   * @uses bool $wpua_tinymce
-   * @uses is_admin()
    */
   private function _load_wpua() {
-    global $wpua_tinymce;
     require_once(WPUA_INC.'wpua-globals.php');
     require_once(WPUA_INC.'wpua-functions.php');
     require_once(WPUA_INC.'class-wp-user-avatar-admin.php');
@@ -75,12 +71,6 @@ class WP_User_Avatar_Setup {
     require_once(WPUA_INC.'class-wp-user-avatar-subscriber.php');
     require_once(WPUA_INC.'class-wp-user-avatar-update.php');
     require_once(WPUA_INC.'class-wp-user-avatar-widget.php');
-    
-    // Load TinyMCE only if enabled
-    if((bool) $wpua_tinymce == 1) {
-      require_once(WPUA_INC.'wpua-tinymce.php');
-    }
-
   }
 }
 
