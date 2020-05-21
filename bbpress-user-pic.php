@@ -70,7 +70,6 @@ class WP_User_Avatar_Setup {
     require_once(WPUA_INC.'class-wp-user-avatar-shortcode.php');
     require_once(WPUA_INC.'class-wp-user-avatar-subscriber.php');
     require_once(WPUA_INC.'class-wp-user-avatar-update.php');
-    require_once(WPUA_INC.'class-wp-user-avatar-widget.php');
   }
 }
 

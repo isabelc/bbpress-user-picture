@@ -169,13 +169,3 @@ function wpua_do_after_avatar_admin() {
   <?php
 }
 add_action('wpua_after_avatar_admin', 'wpua_do_after_avatar_admin');
-
-/**
- * Register widget
- * @since 1.9.4
- * @uses register_widget()
- */
-function wpua_widgets_init() {
-  register_widget('WP_User_Avatar_Profile_Widget');
-}
-add_action('widgets_init', 'wpua_widgets_init');
