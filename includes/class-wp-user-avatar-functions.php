@@ -18,16 +18,7 @@ class WP_User_Avatar_Functions {
     add_filter('get_avatar', array($this, 'wpua_get_avatar_filter'), 10, 5);
 
     add_filter( 'get_avatar_url', array($this,'wpua_get_avatar_url'), 10, 3 );
-
-    // Filter to display WP User Avatar at Buddypress
-    add_filter('bp_core_fetch_avatar', array($this, 'wpua_bp_core_fetch_avatar_filter'), 10, 5);
-    // Filter to display WP User Avatar by URL at Buddypress
-    add_filter('bp_core_fetch_avatar_url', array($this, 'wpua_bp_core_fetch_avatar_url_filter'), 10, 5);
-  
   }
-
-
-
   function wpua_get_avatar_url($url, $id_or_email, $args){
     $user_id=null;
     if(is_object($id_or_email)){
@@ -101,47 +92,6 @@ class WP_User_Avatar_Functions {
         }
 
         return $url;
-  }
-  
-  /**
-   * Returns WP User Avatar or Gravatar-hosted image if user doesn't have Buddypress-uploaded image
-   * @param string $avatar
-   * @param array $params
-   * @param int $item_id
-   * @param string $avatar_dir
-   * @param string $css_id
-   * @param int $html_width
-   * @param int $html_height
-   * @param string $avatar_folder_url
-   * @param string $avatar_folder_dir
-   * @uses object $wpua_functions
-   * @uses wpua_get_avatar_filter()
-  */
-  public function wpua_bp_core_fetch_avatar_filter($gravatar,$params,$item_id='', $avatar_dir='', $css_id='', $html_width='', $html_height='', $avatar_folder_url='', $avatar_folder_dir=''){
-  global $wpua_functions;
-  if(strpos($gravatar,'gravatar.com',0)>-1){
-    $avatar = $wpua_functions->wpua_get_avatar_filter($gravatar, ($params['object']=='user') ? $params['item_id'] : '', ($params['object']=='user') ? (($params['type']=='thumb') ? 50 :150) : 50, '', '');
-    return $avatar;
-    }
-    else
-    return $gravatar;
-  }
-  
-  /**
-   * Returns WP user default local avatar URL or Gravatar-hosted image URL if user doesn't have Buddypress-uploaded image
-   * @param string $avatar
-   * @param array $params
-   * @uses object $wpua_functions
-   * @uses wpua_get_avatar_filter()
-  */
-  public function wpua_bp_core_fetch_avatar_url_filter($gravatar,$params){
-    global $wpua_functions;
-    if(strpos($gravatar,'gravatar.com',0)>-1){
-        $avatar =  $this->wpua_get_avatar_url($gravatar, $params['email'], $params);
-        return $avatar;
-      }
-      else
-      return $gravatar;
   }
   /**
    * Check if local image
