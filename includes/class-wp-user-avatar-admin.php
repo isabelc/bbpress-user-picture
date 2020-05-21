@@ -106,7 +106,7 @@ class WP_User_Avatar_Admin {
    * @uses add_submenu_page()
    */
   public function wpua_admin() {
-    add_menu_page('WP User Avatar', 'Avatars', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), WPUA_URL.'images/wpua-icon.png');
+    add_menu_page('bbPress User Picture', 'Avatars', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), WPUA_URL.'images/wpua-icon.png');
     add_submenu_page('wp-user-avatar', 'Settings', 'Settings', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'));
     $hook = add_submenu_page('wp-user-avatar', 'Library', 'Library', 'manage_options', 'wp-user-avatar-library', array($this, 'wpua_media_page'));
     add_action("load-$hook", array($this, 'wpua_media_screen_option'));
