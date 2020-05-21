@@ -661,16 +661,7 @@ class WP_User_Avatar_Functions {
       $replacements = array("", "", "", 'avatar-'.$size, 'wp-user-avatar wp-user-avatar-'.$size.$alignclass.' photo');
       $avatar = str_replace($replace, $replacements, $avatar);
     }
-    /**
-     * Filter get_wp_user_avatar
-     * @since 1.9
-     * @param string $avatar
-     * @param int|string $id_or_email
-     * @param int|string $size
-     * @param string $align
-     * @param string $alt
-     */
-    return apply_filters('get_wp_user_avatar', $avatar, $id_or_email, $size, $align, $alt);
+    return $avatar;
   }
 
   /**
