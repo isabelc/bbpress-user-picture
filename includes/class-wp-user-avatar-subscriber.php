@@ -9,24 +9,16 @@
 class WP_User_Avatar_Subscriber {
   /**
    * Constructor
-   * @since 1.8
-   * @uses object $wp_user_avatar
-   * @uses bool $wpua_allow_upload
-   * @uses add_action()
-   * @uses current_user_can()
-   * @uses wpua_is_author_or_above()
    */
   public function __construct() {
-    global $wp_user_avatar, $wpua_allow_upload;
-    if((bool) $wpua_allow_upload == 1) {
-      add_action('user_edit_form_tag', array($this, 'wpua_add_edit_form_multipart_encoding'));
-      // Only Subscribers lack delete_posts capability
-      if(!current_user_can('delete_posts') && current_user_can('edit_posts') && !$wp_user_avatar->wpua_is_author_or_above()) {
-        add_action('admin_menu', array($this, 'wpua_subscriber_remove_menu_pages'));
-        add_action('wp_before_admin_bar_render', array($this, 'wpua_subscriber_remove_menu_bar_items'));
-        add_action('wp_dashboard_setup', array($this, 'wpua_subscriber_remove_dashboard_widgets'));
-        add_action('admin_init', array($this, 'wpua_subscriber_offlimits'));
-      }
+    global $wp_user_avatar;
+    add_action('user_edit_form_tag', array($this, 'wpua_add_edit_form_multipart_encoding'));
+    // Only Subscribers lack delete_posts capability
+    if(!current_user_can('delete_posts') && current_user_can('edit_posts') && !$wp_user_avatar->wpua_is_author_or_above()) {
+      add_action('admin_menu', array($this, 'wpua_subscriber_remove_menu_pages'));
+      add_action('wp_before_admin_bar_render', array($this, 'wpua_subscriber_remove_menu_bar_items'));
+      add_action('wp_dashboard_setup', array($this, 'wpua_subscriber_remove_dashboard_widgets'));
+      add_action('admin_init', array($this, 'wpua_subscriber_offlimits'));
     }
     add_action('admin_init', array($this, 'wpua_subscriber_capability'));
   }
@@ -102,20 +94,12 @@ class WP_User_Avatar_Subscriber {
 
   /**
    * Give subscribers edit_posts capability
-   * @since 1.8.3
-   * @uses int $blog_id
-   * @uses object $wpdb
-   * @uses bool $wpua_allow_upload
-   * @uses bool $wpua_edit_avatar
-   * @uses get_blog_prefix()
-   * @uses get_option()
-   * @uses update_option()
    */
   public function wpua_subscriber_capability() {
-    global $blog_id, $wpdb, $wpua_allow_upload, $wpua_edit_avatar;
+    global $blog_id, $wpdb, $wpua_edit_avatar;
     $wp_user_roles = $wpdb->get_blog_prefix($blog_id).'user_roles';
     $user_roles = get_option($wp_user_roles);
-    if((bool) $wpua_allow_upload == 1 && (bool) $wpua_edit_avatar == 1) {
+    if((bool) $wpua_edit_avatar == 1) {
       $user_roles['subscriber']['capabilities']['edit_posts'] = true;
     } else {
      if(isset($user_roles['subscriber']['capabilities']['edit_posts'])){

@@ -1,8 +1,4 @@
 jQuery(function($) {
-  // Show size info only if allow uploads is checked
-  $('#wp_user_avatar_allow_upload').change(function() {
-    $('#wpua-contributors-subscribers').slideToggle($('#wp_user_avatar_allow_upload').is(':checked'));
-  });
   // Show resize info only if resize uploads is checked
   $('#wp_user_avatar_resize_upload').change(function() {
      $('#wpua-resize-sizes').slideToggle($('#wp_user_avatar_resize_upload').is(':checked'));

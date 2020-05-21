@@ -170,26 +170,12 @@ class WP_User_Avatar_Shortcode {
 
   /**
    * Edit shortcode
-   * @since 1.8
-   * @param array $atts
-   * @uses $wp_user_avatar
-   * @uses $wpua_allow_upload
-   * @uses current_user_can()
-   * @uses do_action()
-   * @uses get_error_messages()
-   * @uses get_user_by()
-   * @uses is_user_logged_in()
-   * @uses is_wp_error()
-   * @uses shortcode_atts()
-   * @uses wpua_edit_form()
-   * @uses wpua_edit_user()
-   * @uses wpua_is_author_or_above()
    * @return string
    */
   public function wpua_edit_shortcode($atts) {
-    global $current_user, $errors, $wp_user_avatar, $wpua_allow_upload;
+    global $current_user, $errors, $wp_user_avatar;
     // Shortcode only works for users with permission
-    if($wp_user_avatar->wpua_is_author_or_above() || ((bool) $wpua_allow_upload == 1 && is_user_logged_in())) {
+    if($wp_user_avatar->wpua_is_author_or_above() || is_user_logged_in()) {
       extract(shortcode_atts(array('user' => ""), $atts));
       // Default user is current user
       $valid_user = $current_user;

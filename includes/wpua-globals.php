@@ -16,7 +16,6 @@
 // Define global variables
 global $avatar_default,
        $show_avatars,
-       $wpua_allow_upload,
        $wpua_avatar_default,
        $wpua_edit_avatar,
        $wpua_resize_crop,
@@ -45,7 +44,6 @@ $wpua_avatar_default = get_option('avatar_default_wp_user_avatar');
 
 // Booleans
 $show_avatars = get_option('show_avatars');
-$wpua_allow_upload = get_option('wp_user_avatar_allow_upload');
 $wpua_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 $wpua_resize_crop = get_option('wp_user_avatar_resize_crop');
 $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');

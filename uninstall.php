@@ -37,7 +37,6 @@ if(is_multisite()) {
   foreach($blogs as $blog) {
     switch_to_blog($blog->blog_id);
     delete_option('avatar_default_wp_user_avatar');
-    delete_option('wp_user_avatar_allow_upload');
     delete_option('wp_user_avatar_edit_avatar');
     delete_option('wp_user_avatar_load_scripts');
     delete_option('wp_user_avatar_resize_crop');
@@ -54,7 +53,6 @@ if(is_multisite()) {
     delete_user_meta($user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar');
   }
   delete_option('avatar_default_wp_user_avatar');
-  delete_option('wp_user_avatar_allow_upload');
   delete_option('wp_user_avatar_edit_avatar');
   delete_option('wp_user_avatar_load_scripts');
   delete_option('wp_user_avatar_resize_crop');

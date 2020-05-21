@@ -9,22 +9,11 @@
 class WP_User_Avatar {
   /**
    * Constructor
-   * @since 1.8
-   * @uses string $pagenow
-   * @uses bool $show_avatars
-   * @uses object $wpua_admin
-   * @uses bool $wpua_allow_upload
-   * @uses add_action()
-   * @uses add_filterI]()
-   * @uses is_admin()
-   * @uses is_user_logged_in()
-   * @uses wpua_is_author_or_above()
-   * @uses wpua_is_menu_page()
    */
   public function __construct() {
-    global $pagenow, $show_avatars, $wpua_admin, $wpua_allow_upload;
+    global $pagenow, $show_avatars, $wpua_admin;
     // Add WPUA to profile for users with permission
-    if($this->wpua_is_author_or_above() || ((bool) $wpua_allow_upload == 1 && is_user_logged_in())) {
+    if($this->wpua_is_author_or_above() || is_user_logged_in()) {
       // Profile functions and scripts
       add_action('show_user_profile', array('wp_user_avatar', 'wpua_action_show_user_profile'));
       add_action('personal_options_update', array($this, 'wpua_action_process_option_update'));
@@ -104,33 +93,11 @@ class WP_User_Avatar {
     }
   }
 
-  /** @todo need all these?
+  /**
    * Add to edit user profile
-   * @since 1.4
-   * @param object $user
-   * @uses int $blog_id
-   * @uses object $current_user
-   * @uses bool $show_avatars
-   * @uses object $wpdb
-   * @uses object $wp_user_avatar
-   * @uses bool $wpua_allow_upload
-   * @uses bool $wpua_edit_avatar
-   * @uses object $wpua_functions
-   * @uses string $wpua_upload_size_limit
-   * @uses add_query_arg()
-   * @uses admin_url()
-   * @uses do_action()
-   * @uses get_blog_prefix()
-   * @uses get_user_meta()
-   * @uses get_wp_user_avatar_src()
-   * @uses has_wp_user_avatar()
-   * @uses is_admin()
-   * @uses wpua_author()
-   * @uses wpua_get_avatar_original()
-   * @uses wpua_is_author_or_above()
    */
   public static function wpua_action_show_user_profile($user) {
-    global $blog_id, $current_user, $show_avatars, $wpdb, $wp_user_avatar, $wpua_allow_upload, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit;
+    global $blog_id, $current_user, $show_avatars, $wpdb, $wp_user_avatar, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit;
     $has_wp_user_avatar = has_wp_user_avatar(@$user->ID);
     // Get WPUA attachment ID
     $wpua = get_user_meta(@$user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);

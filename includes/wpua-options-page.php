@@ -6,12 +6,11 @@
  * @version 1.9.13
  */
 
-global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_allow_upload, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_upload, $wpua_subscriber, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
+global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_upload, $wpua_subscriber, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
 $updated = false;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
   $updated = true;
 }
-$hide_size = (bool) $wpua_allow_upload != 1 ? ' style="display:none;"' : "";
 $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
 $wpua_options_page_title = __('WP User Avatar', 'wp-user-avatar');
 /**
@@ -28,46 +27,10 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
     <td align="top">
   <form method="post" action="<?php echo admin_url('options.php'); ?>">
     <?php settings_fields('wpua-settings-group'); ?>
-    <?php do_settings_fields('wpua-settings-group', ""); ?>
-    <table class="form-table">
-      <?php
-        // Format settings in table rows
-        $wpua_before_settings = array();
-        /**
-         * Filter settings at beginning of table
-         * @since 1.9
-         * @param array $wpua_before_settings
-         */
-        $wpua_before_settings = apply_filters('wpua_before_settings', $wpua_before_settings);
-        echo implode("", $wpua_before_settings);
-      ?>
-      <tr valign="top">
-        <th scope="row"><?php _e('Settings'); ?></th>
-        <td>
-          <?php
-            // Format settings in fieldsets
-            $wpua_settings = array();
-            $wpua_settings['upload'] ='<fieldset>
-              <label for="wp_user_avatar_allow_upload">
-                <input name="wp_user_avatar_allow_upload" type="checkbox" id="wp_user_avatar_allow_upload" value="1" '.checked($wpua_allow_upload, 1, 0).' />'
-                .__('Allow Contributors & Subscribers to upload avatars', 'wp-user-avatar').'
-              </label>
-            </fieldset>';
-            /**
-             * Filter main settings
-             * @since 1.9
-             * @param array $wpua_settings
-             */
-            $wpua_settings = apply_filters('wpua_settings', $wpua_settings);
-            echo implode("", $wpua_settings);
-          ?>
-        </td>
-      </tr>
-    </table>
-    <?php
+    <?php do_settings_fields('wpua-settings-group', "");
       // Format settings in table
       $wpua_subscriber_settings = array();
-      $wpua_subscriber_settings['subscriber-settings'] = '<div id="wpua-contributors-subscribers"'.$hide_size.'>
+      $wpua_subscriber_settings['subscriber-settings'] = '<div id="wpua-contributors-subscribers">
         <table class="form-table">
           <tr valign="top">
             <th scope="row">
