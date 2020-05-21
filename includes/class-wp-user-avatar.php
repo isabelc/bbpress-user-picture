@@ -125,7 +125,7 @@ class WP_User_Avatar {
     }
   }
 
-  /**
+  /** @todo need all these?
    * Add to edit user profile
    * @since 1.4
    * @param object $user
@@ -137,7 +137,7 @@ class WP_User_Avatar {
    * @uses bool $wpua_allow_upload
    * @uses bool $wpua_edit_avatar
    * @uses object $wpua_functions
-   * @uses string $wpua_upload_size_limit_with_units
+   * @uses string $wpua_upload_size_limit
    * @uses add_query_arg()
    * @uses admin_url()
    * @uses do_action()
@@ -151,7 +151,7 @@ class WP_User_Avatar {
    * @uses wpua_is_author_or_above()
    */
   public static function wpua_action_show_user_profile($user) {
-    global $blog_id, $current_user, $show_avatars, $wpdb, $wp_user_avatar, $wpua_allow_upload, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit_with_units;
+    global $blog_id, $current_user, $show_avatars, $wpdb, $wp_user_avatar, $wpua_allow_upload, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit;
     $has_wp_user_avatar = has_wp_user_avatar(@$user->ID);
     // Get WPUA attachment ID
     $wpua = get_user_meta(@$user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);
@@ -181,7 +181,7 @@ class WP_User_Avatar {
         <button type="submit" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-upload' : 'wpua-upload-existing'?>" name="submit" value="<?php _e('Upload','wp-user-avatar'); ?>"><?php _e('Upload','wp-user-avatar'); ?></button>
       </p>
       <p id="<?php echo ($user=='add-new-user') ? 'wpua-upload-messages' : 'wpua-upload-messages-existing'?>">
-        <span id="<?php echo ($user=='add-new-user') ? 'wpua-max-upload' : 'wpua-max-upload-existing'?>" class="small"><?php printf(__('Maximum upload file size: %d%s.','wp-user-avatar'), esc_html($wpua_upload_size_limit_with_units), esc_html('KB')); ?></span>
+        <span id="<?php echo ($user=='add-new-user') ? 'wpua-max-upload' : 'wpua-max-upload-existing'?>" class="small"><?php printf('Maximum upload file size: %dMB.', ($wpua_upload_size_limit / 1048576)); ?></span>
         <span id="<?php echo ($user=='add-new-user') ? 'wpua-allowed-files' : 'wpua-allowed-files-existing'?>" class="small"><?php _e('Allowed Files','wp-user-avatar'); ?>: <?php _e('<code>jpg jpeg png gif</code>','wp-user-avatar'); ?></span>
       </p>
     <?php endif; ?>
@@ -219,7 +219,7 @@ class WP_User_Avatar {
       $type = $_FILES['wpua-file']['type'];
       $upload_dir = wp_upload_dir();
       if($_FILES['wpua-file']['error'] && empty($size) && empty($type)) {
-        $errors->add('wpua_file_size', 'Please try again. Image cannot be larger than 2MB. It must be either a JPEG, PNG, or GIF.');
+        $errors->add('wpua_file_size', sprintf('Please try again. Image cannot be larger than %dMB.', ($wpua_upload_size_limit / 1048576)));
         return;
       }
       // Allow only JPG, GIF, PNG
@@ -228,7 +228,7 @@ class WP_User_Avatar {
       }
       // Upload size limit
       if(!empty($size) && $size > $wpua_upload_size_limit) {
-        $errors->add('wpua_file_size', __('Memory exceeded. Please try another smaller file.','wp-user-avatar'));
+        $errors->add('wpua_file_size', 'Memory exceeded. Please try another smaller file.');
       }
       // Check if directory is writeable
       if(!is_writeable($upload_dir['path'])) {
@@ -254,7 +254,7 @@ class WP_User_Avatar {
        * @since 1.7
        */
       function wpua_file_size_error($errors, $update, $user) {
-        $errors->add('wpua_file_size', __('Memory exceeded. Please try another smaller file.','wp-user-avatar'));
+        $errors->add('wpua_file_size', 'Memory exceeded. Please try another smaller file.');
       }
       add_action('user_profile_update_errors', 'wpua_file_size_error', 10, 3);
       return;
@@ -336,7 +336,7 @@ class WP_User_Avatar {
       if(isset($_POST['submit']) && $_POST['submit'] && !empty($_FILES['wpua-file']) && empty($_FILES['wpua-file']['error'])) {
         $name = $_FILES['wpua-file']['name'];
         $file = wp_handle_upload($_FILES['wpua-file'], array('test_form' => false));
-        $type = $_FILES['wpua-file']['type'];
+        $type = $_FILES['wpua-file']['type'] ?? '';
         $upload_dir = wp_upload_dir();
         if(is_writeable($upload_dir['path'])) {
           if(!empty($type) && preg_match('/(jpe?g|gif|png)$/i', $type)) {
