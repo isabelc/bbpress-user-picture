@@ -119,23 +119,21 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
     ?>
     <table class="form-table">
       <tr valign="top">
-      <th scope="row"><?php _e('Avatar Display','wp-user-avatar'); ?></th>
+      <th scope="row">Avatar Display</th>
       <td>
         <fieldset>
-          <legend class="screen-reader-text"><span><?php _e('Avatar Display','wp-user-avatar'); ?></span></legend>
+          <legend class="screen-reader-text"><span>Avatar Display</span></legend>
           <label for="show_avatars">
           <input type="checkbox" id="show_avatars" name="show_avatars" value="1" <?php checked($show_avatars, 1); ?> />
-          <?php _e('Show Avatars','wp-user-avatar'); ?>
-          </label>
+          Show Avatars </label>
         </fieldset>
         </td>
       </tr>
       <tr valign="top">
-        <th scope="row"><?php _e('Default Avatar','wp-user-avatar') ?></th>
+        <th scope="row">Default Avatar </th>
         <td class="defaultavatarpicker">
           <fieldset>
-            <legend class="screen-reader-text"><span><?php _e('Default Avatar','wp-user-avatar'); ?></span></legend>
-            <?php _e('For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their e-mail address.','wp-user-avatar'); ?><br />
+            <legend class="screen-reader-text"><span>Default Avatar</span></legend>For users without a custom avatar of their own, you can display a generic logo.<br />
             <?php echo $wpua_admin->wpua_add_default_avatar(); ?>
           </fieldset>
         </td>
