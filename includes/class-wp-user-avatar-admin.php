@@ -47,33 +47,14 @@ class WP_User_Avatar_Admin {
    * @uses add_option()
    */
   public function wpua_options() {
-    
     add_option('avatar_default_wp_user_avatar', "");
     add_option('wp_user_avatar_allow_upload', '0');
-    add_option('wp_user_avatar_disable_gravatar', '0');
     add_option('wp_user_avatar_edit_avatar', '1');
     add_option('wp_user_avatar_resize_crop', '0');
     add_option('wp_user_avatar_resize_h', '96');
     add_option('wp_user_avatar_resize_upload', '0');
     add_option('wp_user_avatar_resize_w', '96');
     add_option('wp_user_avatar_upload_size_limit', '0');	
-
-    if(wp_next_scheduled( 'wpua_has_gravatar_cron_hook' )){
-      $cron=get_option('cron');
-      $new_cron='';
-      foreach($cron as $key=>$value)
-      {
-        if(is_array($value))
-        {
-        if(array_key_exists('wpua_has_gravatar_cron_hook',$value))
-        unset($cron[$key]);
-        }
-      }
-      update_option('cron',$cron);
-  }
-
-
-
   }
 
   /**
@@ -182,7 +163,6 @@ class WP_User_Avatar_Admin {
     $settings[] = register_setting('wpua-settings-group', 'avatar_default_wp_user_avatar');
     $settings[] = register_setting('wpua-settings-group', 'show_avatars', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_allow_upload', 'intval');
-    $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_disable_gravatar', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_crop', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_h', 'intval');
@@ -204,7 +184,6 @@ class WP_User_Avatar_Admin {
    * @uses string $mustache_admin
    * @uses string $mustache_medium
    * @uses int $wpua_avatar_default
-   * @uses bool $wpua_disable_gravatar
    * @uses object $wpua_functions
    * @uses get_avatar()
    * @uses remove_filter()
@@ -213,7 +192,7 @@ class WP_User_Avatar_Admin {
    * @return string
    */
   public function wpua_add_default_avatar() {
-    global $avatar_default, $mustache_admin, $mustache_medium, $wpua_avatar_default, $wpua_disable_gravatar, $wpua_functions;
+    global $avatar_default, $mustache_admin, $mustache_medium, $wpua_avatar_default, $wpua_functions;
     // Remove get_avatar filter
     remove_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'));
     // Set avatar_list variable
@@ -251,7 +230,7 @@ class WP_User_Avatar_Admin {
       $hide_remove = ' class="wpua-hide"';
     }
     // Default Avatar is wp_user_avatar, check the radio button next to it
-    $selected_avatar = ((bool) $wpua_disable_gravatar == 1 || $avatar_default == 'wp_user_avatar') ? ' checked="checked" ' : "";
+    $selected_avatar = ($avatar_default == 'wp_user_avatar') ? ' checked="checked" ' : "";
     // Wrap WPUA in div
     $avatar_thumb_img = '<div id="wpua-preview"><img src="'.$avatar_thumb.'" width="32" /></div>';
     // Add WPUA to list
@@ -262,11 +241,7 @@ class WP_User_Avatar_Admin {
     $wpua_list .= '<span id="wpua-remove-button"'.$hide_remove.'><a href="#" id="wpua-remove">'.__('Remove','wp-user-avatar').'</a></span><span id="wpua-undo-button"><a href="#" id="wpua-undo">'.__('Undo','wp-user-avatar').'</a></span></p>';
     $wpua_list .= '<input type="hidden" id="wp-user-avatar" name="avatar_default_wp_user_avatar" value="'.$wpua_avatar_default.'">';
     $wpua_list .= '<div id="wpua-modal"></div>';
-    if((bool) $wpua_disable_gravatar != 1) {
-      return $wpua_list.'<div id="wp-avatars">'.$avatar_list.'</div>';
-    } else {
-      return $wpua_list.'<div id="wp-avatars" style="display:none;">'.$avatar_list.'</div>';
-    }
+    return $wpua_list.'<div id="wp-avatars" style="display:none;">'.$avatar_list.'</div>';
   }
 
   /**

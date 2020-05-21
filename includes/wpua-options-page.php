@@ -6,33 +6,7 @@
  * @version 1.9.13
  */
 
-/**
- * @since 1.4
- * @uses bool $show_avatars
- * @uses string $upload_size_limit_with_units
- * @uses object $wpua_admin
- * @uses bool $wpua_allow_upload
- * @uses bool $wpua_disable_gravatar
- * @uses bool $wpua_edit_avatar
- * @uses bool $wpua_resize_crop
- * @uses int int $wpua_resize_h
- * @uses bool $wpua_resize_upload
- * @uses int $wpua_resize_w
- * @uses object $wpua_subscriber
- * @uses int $wpua_upload_size_limit
- * @uses string $wpua_upload_size_limit_with_units
- * @uses admin_url()
- * @uses apply_filters()
- * @uses checked()
- * @uses do_action()
- * @uses do_settings_fields()
- * @uses get_option()
- * @uses settings_fields()
- * @uses submit_button()
- * @uses wpua_add_default_avatar()
- */
-
-global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_allow_upload, $wpua_disable_gravatar, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_h, $wpua_resize_upload, $wpua_resize_w, $wpua_subscriber, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
+global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_allow_upload, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_upload, $wpua_subscriber, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
 $updated = false;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
   $updated = true;
@@ -77,12 +51,6 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
               <label for="wp_user_avatar_allow_upload">
                 <input name="wp_user_avatar_allow_upload" type="checkbox" id="wp_user_avatar_allow_upload" value="1" '.checked($wpua_allow_upload, 1, 0).' />'
                 .__('Allow Contributors & Subscribers to upload avatars', 'wp-user-avatar').'
-              </label>
-            </fieldset>';
-            $wpua_settings['gravatar'] ='<fieldset>
-              <label for="wp_user_avatar_disable_gravatar">
-                <input name="wp_user_avatar_disable_gravatar" type="checkbox" id="wp_user_avatar_disable_gravatar" value="1" '.checked($wpua_disable_gravatar, 1, 0).' />'
-                .__('Disable Gravatar and use only local avatars', 'wp-user-avatar').'
               </label>
             </fieldset>';
             /**
@@ -162,26 +130,6 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
         </fieldset>
         </td>
       </tr>
-        <tr valign="top" id="avatar-rating" <?php echo ((bool) $wpua_disable_gravatar == 1) ? 'style="display:none"' : ''?>>
-          <th scope="row"><?php _e('Maximum Rating','wp-user-avatar'); ?></th>
-          <td>
-            <fieldset>
-              <legend class="screen-reader-text"><span><?php _e('Maximum Rating','wp-user-avatar'); ?></span></legend>
-              <?php
-                $ratings = array(
-                  'G' => __('G &#8212; Suitable for all audiences','wp-user-avatar'),
-                  'PG' => __('PG &#8212; Possibly offensive, usually for audiences 13 and above','wp-user-avatar'),
-                  'R' => __('R &#8212; Intended for adult audiences above 17','wp-user-avatar'),
-                  'X' => __('X &#8212; Even more mature than above','wp-user-avatar')
-                );
-                foreach ($ratings as $key => $rating) :
-                  $selected = (get_option('avatar_rating') == $key) ? 'checked="checked"' : "";
-                  echo "\n\t<label><input type='radio' name='avatar_rating' value='".esc_attr($key)."' $selected/> $rating</label><br />";
-                endforeach;
-              ?>
-            </fieldset>
-          </td>
-        </tr>
       <tr valign="top">
         <th scope="row"><?php _e('Default Avatar','wp-user-avatar') ?></th>
         <td class="defaultavatarpicker">

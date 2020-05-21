@@ -29,10 +29,6 @@ class WP_User_Avatar_Functions {
 
 
   function wpua_get_avatar_url($url, $id_or_email, $args){
-
-
-    global $wpua_disable_gravatar;
-
     $user_id=null;
     if(is_object($id_or_email)){
        if(!empty($id_or_email->comment_author_email)) {
@@ -55,16 +51,9 @@ class WP_User_Avatar_Functions {
 
       $url = $this->get_wp_user_avatar_src( $user_id );
 
-    } else if( $wpua_disable_gravatar ) {
-
-      $url = $this->wpua_get_default_avatar_url($url, $id_or_email, $args);
-    
     } else {
 
-      $has_valid_url = $this->wpua_has_gravatar($id_or_email);
-      if(!$has_valid_url){
-        $url = $this->wpua_get_default_avatar_url($url, $id_or_email, $args);
-      }
+      $url = $this->wpua_get_default_avatar_url($url, $id_or_email, $args);
     
     }
     /**
@@ -82,7 +71,7 @@ class WP_User_Avatar_Functions {
 
   function wpua_get_default_avatar_url($url, $id_or_email, $args){
 
-        global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_disable_gravatar, $wpua_functions;
+        global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_functions;
         
         $default_image_details = array();
 
@@ -154,117 +143,6 @@ class WP_User_Avatar_Functions {
       else
       return $gravatar;
   }
- 
-  /**
-   * Returns true if user has Gravatar-hosted image
-   * @since 1.4
-   * @param int|string $id_or_email
-   * @param bool $has_gravatar
-   * @param int|string $user
-   * @param string $email
-   * @uses get_user_by()
-   * @uses is_wp_error()
-   * @uses wp_cache_get()
-   * @uses wp_cache_set()
-   * @uses wp_remote_head()
-   * @return bool $has_gravatar
-   */
-  public function wpua_has_gravatar($id_or_email="", $has_gravatar=0, $user="", $email="") {
-    global $wpua_hash_gravatar,$avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_disable_gravatar, $wpua_functions;
-    // User has WPUA
-    //Decide if check gravatar required or not.
-    if(trim($avatar_default)!='wp_user_avatar')
-      return true;
-   
-    if(!is_object($id_or_email) && !empty($id_or_email)) {
-      // Find user by ID or e-mail address
-      $user = is_numeric($id_or_email) ? get_user_by('id', $id_or_email) : get_user_by('email', $id_or_email);
-      // Get registered user e-mail address
-      $email = !empty($user) ? $user->user_email : "";
-    }
-
-    if($email == ""){
-
-      if(!is_numeric($id_or_email) and !is_object($id_or_email))
-        $email = $id_or_email;
-      elseif(!is_numeric($id_or_email) and is_object($id_or_email))
-        $email = $id_or_email->comment_author_email;
-    }
-    if($email!="")
-    {
-      $hash = md5(strtolower(trim($email)));
-      //check if gravatar exists for hashtag using options
-      
-      if(is_array($wpua_hash_gravatar)){
-    
-        
-      if ( array_key_exists($hash, $wpua_hash_gravatar) and is_array($wpua_hash_gravatar[$hash]) and array_key_exists(date('m-d-Y'), $wpua_hash_gravatar[$hash]) )
-      {
-        return (bool) $wpua_hash_gravatar[$hash][date('m-d-Y')];
-      } 
-      
-      }
-      
-      //end
-       if ( isset( $_SERVER['HTTPS'] ) && ( 'on' == $_SERVER['HTTPS'] || 1 == $_SERVER['HTTPS'] ) || isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) { 
-        $http='https';
-      }else{
-        $http='http';
-      }
-      $gravatar = $http.'://www.gravatar.com/avatar/'.$hash.'?d=404';
-      
-      $data = wp_cache_get($hash);
-
-      if(false === $data) {
-        $response = wp_remote_head($gravatar);
-        $data = is_wp_error($response) ? 'not200' : $response['response']['code'];
-        
-        wp_cache_set($hash, $data, $group="", $expire=60*5);
-        //here set if hashtag has avatar
-        $has_gravatar = ($data == '200') ? true : false;
-        if($wpua_hash_gravatar == false){
-        $wpua_hash_gravatar[$hash][date('m-d-Y')] = (bool)$has_gravatar;
-        add_option('wpua_hash_gravatar',serialize($wpua_hash_gravatar));
-        }
-        else{
-
-          if(is_array($wpua_hash_gravatar) && !empty($wpua_hash_gravatar)){
-
-              if (array_key_exists($hash, $wpua_hash_gravatar)){
-
-                  unset($wpua_hash_gravatar[$hash]);
-                  $wpua_hash_gravatar[$hash][date('m-d-Y')] = (bool)$has_gravatar;
-                  update_option('wpua_hash_gravatar',serialize($wpua_hash_gravatar));
-              }
-              else
-              {
-                $wpua_hash_gravatar[$hash][date('m-d-Y')] = (bool)$has_gravatar;
-                update_option('wpua_hash_gravatar',serialize($wpua_hash_gravatar));
-
-              }
-
-          }
-
-          /*else{
-            $wpua_hash_gravatar[$hash][date('m-d-Y')] = (bool)$has_gravatar;
-            update_option('wpua_hash_gravatar',serialize($wpua_hash_gravatar));
-
-          }*/
-        
-        }
-      //end
-      }
-      $has_gravatar = ($data == '200') ? true : false;
-      
-    }
-    else
-      $has_gravatar = false;
-
-    // Check if Gravatar image returns 200 (OK) or 404 (Not Found)
-    return (bool) $has_gravatar;
-  }
-
-   
   /**
    * Check if local image
    * @since 1.9.2
@@ -369,7 +247,7 @@ class WP_User_Avatar_Functions {
   */
   public function wpua_default_image($size)
   {
-        global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_disable_gravatar, $wpua_functions;
+        global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_functions;
         
         $default_image_details = array();
         // Show custom Default Avatar
@@ -405,34 +283,11 @@ class WP_User_Avatar_Functions {
   }
   /**
    * Replace get_avatar only in get_wp_user_avatar
-   * @since 1.4
-   * @param string $avatar
-   * @param int|string $id_or_email
-   * @param int|string $size
-   * @param string $default
-   * @param string $alt
-   * @uses string $avatar_default
-   * @uses string $mustache_admin
-   * @uses string $mustache_avatar
-   * @uses string $mustache_medium
-   * @uses string $mustache_original
-   * @uses string $mustache_thumbnail
-   * @uses object $post
-   * @uses int $wpua_avatar_default
-   * @uses bool $wpua_disable_gravatar
-   * @uses object $wpua_functions
-   * @uses apply_filters()
-   * @uses get_wp_user_avatar()
-   * @uses has_wp_user_avatar()
-   * @uses wpua_has_gravatar()
-   * @uses wpua_attachment_is_image()
-   * @uses wpua_get_attachment_image_src()
-   * @uses get_option()
    * @return string $avatar
    */
   public function wpua_get_avatar_filter($avatar, $id_or_email="", $size="", $default="", $alt="") {
     
-    global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_disable_gravatar, $wpua_functions;
+    global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_functions;
     // User has WPUA
 
     if( $alt == '' ) {
@@ -451,21 +306,7 @@ class WP_User_Avatar_Functions {
     } else {
       if(has_wp_user_avatar($id_or_email)) {
         $avatar = get_wp_user_avatar($id_or_email, $size, $default, $alt);
-      // User has Gravatar and Gravatar is not disabled
-      } elseif((bool) $wpua_disable_gravatar != 1 && $wpua_functions->wpua_has_gravatar($id_or_email)) {
-       // find our src
-       if(!empty($avatar)) {
-          $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar, $matches, PREG_SET_ORDER);
-          $wpua_avatar_image_src = !empty($matches) ? $matches [0] [1] : "";
-          $default_image_details = $this->wpua_default_image($size); 
-          $wpua_default_avatar_image_src = $default_image_details['src'];
-          $wpua_final_avatar_image_src = str_replace('d=wp_user_avatar', 'd='.urlencode($wpua_default_avatar_image_src), $wpua_avatar_image_src);
-        }
-
-       //$avatar = $avatar;
-       $avatar = '<img src="'.$wpua_final_avatar_image_src.'"'.$default_image_details['dimensions'].' alt="'.$alt.'" class="avatar avatar-'.$size.' wp-user-avatar wp-user-avatar-'.$size.' photo avatar-default" />';
-
-      // User doesn't have WPUA or Gravatar and Default Avatar is wp_user_avatar, show custom Default Avatar
+      // User doesn't have WPUA and Default Avatar is wp_user_avatar, show custom Default Avatar
       } elseif($avatar_default == 'wp_user_avatar') {
 
        $default_image_details = $this->wpua_default_image($size); 
@@ -489,59 +330,18 @@ class WP_User_Avatar_Functions {
 
   /**
    * Get original avatar, for when user removes wp_user_avatar
-   * @since 1.4
-   * @param int|string $id_or_email
-   * @param int|string $size
-   * @param string $default
-   * @param string $alt
-   * @uses string $avatar_default
-   * @uses string $mustache_avatar
-   * @uses int $wpua_avatar_default
-   * @uses bool $wpua_disable_gravatar
-   * @uses object $wpua_functions
-   * @uses wpua_attachment_is_image()
-   * @uses wpua_get_attachment_image_src()
-   * @uses wpua_has_gravatar()
-   * @uses add_filter()
-   * @uses apply_filters()
-   * @uses get_avatar()
-   * @uses remove_filter()
    * @return string $default
    */
   public function wpua_get_avatar_original($id_or_email="", $size="", $default="", $alt="") {
-    global $avatar_default, $mustache_avatar, $wpua_avatar_default, $wpua_disable_gravatar, $wpua_functions;
+    global $avatar_default, $mustache_avatar, $wpua_avatar_default, $wpua_functions;
     // Remove get_avatar filter
     remove_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'));
-    if((bool) $wpua_disable_gravatar != 1) {
-      // User doesn't have Gravatar and Default Avatar is wp_user_avatar, show custom Default Avatar
-      if(!$wpua_functions->wpua_has_gravatar($id_or_email) && $avatar_default == 'wp_user_avatar') {
-        // Show custom Default Avatar
-        if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
-         // $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array($size,$size));
-      $size_numeric_w_x_h = array( get_option( $size . '_size_w' ), get_option( $size . '_size_h' ) );  
-      $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, $size_numeric_w_x_h); 
-   
-          $default = $wpua_avatar_default_image[0];
-        } else {
-          $default = $mustache_avatar;
-        }
-      } else {
-        // Get image from Gravatar, whether it's the user's image or default image
-        $wpua_image = get_avatar($id_or_email, $size);
-        // Takes the img tag, extracts the src
-        $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $wpua_image, $matches, PREG_SET_ORDER);
-        $default = !empty($matches) ? $matches [0] [1] : "";
-      }
-    } else {
-      if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
-//      $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array($size,$size));
+    if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
         $size_numeric_w_x_h = array( get_option( $size . '_size_w' ), get_option( $size . '_size_h' ) );
         $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, $size_numeric_w_x_h);
-
         $default = $wpua_avatar_default_image[0];
-      } else {
-        $default = $mustache_avatar;
-      }
+    } else {
+      $default = $mustache_avatar;
     }
     // Enable get_avatar filter
     add_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'), 10, 5);
@@ -552,33 +352,8 @@ class WP_User_Avatar_Functions {
      */
     return apply_filters('wpua_get_avatar_original', $default);
   }
-
-
   /**
    * Find WPUA, show get_avatar if empty
-   * @since 1.0
-   * @param int|string $id_or_email
-   * @param int|string $size
-   * @param string $align
-   * @param string $alt
-   * @uses array $_wp_additional_image_sizes
-   * @uses array $all_sizes
-   * @uses string $avatar_default
-   * @uses int $blog_id
-   * @uses object $post
-   * @uses object $wpdb
-   * @uses int $wpua_avatar_default
-   * @uses object $wpua_functions
-   * @uses apply_filters()
-   * @uses get_the_author_meta()
-   * @uses get_blog_prefix()
-   * @uses get_user_by()
-   * @uses get_query_var()
-   * @uses is_author()
-   * @uses wpua_attachment_is_image()
-   * @uses wpua_get_attachment_image_src()
-   * @uses get_option()
-   * @uses get_avatar()
    * @return string $avatar
    */
   public function get_wp_user_avatar($id_or_email="", $size='96', $align="", $alt="") {

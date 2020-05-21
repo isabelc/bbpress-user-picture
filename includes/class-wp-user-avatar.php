@@ -72,27 +72,6 @@ class WP_User_Avatar {
 
   /**
    * Media Uploader
-   * @since 1.4
-   * @param object $user
-   * @uses object $current_user
-   * @uses string $mustache_admin
-   * @uses string $pagenow
-   * @uses object $post
-   * @uses bool $show_avatars
-   * @uses object $wp_user_avatar
-   * @uses object $wpua_admin
-   * @uses object $wpua_functions
-   * @uses bool $wpua_is_profile
-   * @uses int $wpua_upload_size_limit
-   * @uses get_user_by()
-   * @uses wp_enqueue_script()
-   * @uses wp_enqueue_media()
-   * @uses wp_enqueue_style()
-   * @uses wp_localize_script()
-   * @uses wp_max_upload_size()
-   * @uses wpua_get_avatar_original()
-   * @uses wpua_is_author_or_above()
-   * @uses wpua_is_menu_page()
    */
   public static function wpua_media_upload_scripts($user="") {
     global $current_user, $mustache_admin, $pagenow, $post, $show_avatars, $wp_user_avatar, $wpua_admin, $wpua_functions, $wpua_is_profile, $wpua_upload_size_limit;
@@ -264,35 +243,6 @@ class WP_User_Avatar {
 
   /**
    * Update user meta
-   * @since 1.4
-   * @param int $user_id
-   * @uses int $blog_id
-   * @uses object $post
-   * @uses object $wpdb
-   * @uses object $wp_user_avatar
-   * @uses bool $wpua_resize_crop
-   * @uses int $wpua_resize_h
-   * @uses bool $wpua_resize_upload
-   * @uses int $wpua_resize_w
-   * @uses add_post_meta()
-   * @uses delete_metadata()
-   * @uses get_blog_prefix()
-   * @uses is_wp_error()
-   * @uses update_post_meta()
-   * @uses update_user_meta()
-   * @uses wp_delete_attachment()
-   * @uses wp_generate_attachment_metadata()
-   * @uses wp_get_image_editor()
-   * @uses wp_handle_upload()
-   * @uses wp_insert_attachment()
-   * @uses WP_Query()
-   * @uses wp_read_image_metadata()
-   * @uses wp_reset_query()
-   * @uses wp_update_attachment_metadata()
-   * @uses wp_upload_dir()
-   * @uses wpua_is_author_or_above()
-   * @uses object $wpua_admin
-   * @uses wpua_has_gravatar()
    */
   public static function wpua_action_process_option_update($user_id) {
     global $blog_id, $post, $wpdb, $wp_user_avatar, $wpua_resize_crop, $wpua_resize_h, $wpua_resize_upload, $wpua_resize_w, $wpua_admin;

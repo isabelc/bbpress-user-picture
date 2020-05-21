@@ -18,7 +18,6 @@ global $avatar_default,
        $show_avatars,
        $wpua_allow_upload,
        $wpua_avatar_default,
-       $wpua_disable_gravatar,
        $wpua_edit_avatar,
        $wpua_resize_crop,
        $wpua_resize_h,
@@ -37,13 +36,7 @@ global $avatar_default,
        $wpua_user_upload_size_limit,
        $wpua_upload_size_limit,
        $wpua_upload_size_limit_with_units,
-       $all_sizes,
-       $wpua_hash_gravatar;
-
-// Store if hash has gravatar
-$wpua_hash_gravatar = get_option('wpua_hash_gravatar');
-if( $wpua_hash_gravatar != false)
-$wpua_hash_gravatar = maybe_unserialize($wpua_hash_gravatar);
+       $all_sizes;
 
 // Default avatar name
 $avatar_default = get_option('avatar_default');
@@ -53,7 +46,6 @@ $wpua_avatar_default = get_option('avatar_default_wp_user_avatar');
 // Booleans
 $show_avatars = get_option('show_avatars');
 $wpua_allow_upload = get_option('wp_user_avatar_allow_upload');
-$wpua_disable_gravatar = get_option('wp_user_avatar_disable_gravatar');
 $wpua_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 $wpua_resize_crop = get_option('wp_user_avatar_resize_crop');
 $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');

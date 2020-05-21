@@ -7,13 +7,11 @@ jQuery(function($) {
   $('#wp_user_avatar_resize_upload').change(function() {
      $('#wpua-resize-sizes').slideToggle($('#wp_user_avatar_resize_upload').is(':checked'));
   });
-  // Hide Gravatars if disable Gravatars is checked
-  $('#wp_user_avatar_disable_gravatar').change(function() {
-    if($('#wp-avatars').length) {
-      $('#wp-avatars, #avatar-rating').slideToggle(!$('#wp_user_avatar_disable_gravatar').is(':checked'));
-      $('#wp_user_avatar_radio').trigger('click');
-    }
-  });
+  if($('#wp-avatars').length) {
+    $('#wp-avatars, #avatar-rating').hide();
+    $('#wp_user_avatar_radio').trigger('click');
+  }  
+
   // Add size slider
   $('#wpua-slider').slider({
     value: parseInt(wpua_admin.upload_size_limit),
