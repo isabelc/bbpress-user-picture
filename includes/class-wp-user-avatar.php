@@ -186,10 +186,6 @@ class WP_User_Avatar {
       </p>
     <?php endif; ?>
     <div id="<?php echo ($user=='add-new-user') ? 'wpua-images' : 'wpua-images-existing'?>" class="<?php echo $hide_images; ?>">
-      <p id="<?php echo ($user=='add-new-user') ? 'wpua-preview' : 'wpua-preview-existing'?>">
-        <img src="<?php echo $avatar_medium; ?>" alt="" />
-        <span class="description"><?php _e('Original Size','wp-user-avatar'); ?></span>
-      </p>
       <p id="<?php echo ($user=='add-new-user') ? 'wpua-thumbnail' : 'wpua-thumbnail-existing'?>">
         <img src="<?php echo $avatar_thumbnail; ?>" alt="" />
         <span class="description"><?php _e('Thumbnail','wp-user-avatar'); ?></span>
