@@ -19,7 +19,7 @@ class WP_User_Avatar_Admin {
   public function __construct() {
     global $show_avatars;
     // Initialize default settings
-    register_activation_hook(WPUA_DIR.'wp-user-avatar.php', array($this, 'wpua_options'));
+    register_activation_hook(WPUA_DIR.'bbpress-user-pic.php', array($this, 'wpua_options'));
     // Settings saved to wp_options
     add_action('admin_init', array($this, 'wpua_options'));
     // Admin menu settings
@@ -53,7 +53,8 @@ class WP_User_Avatar_Admin {
     add_option('wp_user_avatar_resize_h', '96');
     add_option('wp_user_avatar_resize_upload', '0');
     add_option('wp_user_avatar_resize_w', '96');
-    add_option('wp_user_avatar_upload_size_limit', '0');	
+    add_option('wp_user_avatar_upload_size_limit', '0');
+    update_option('avatar_default', 'wp_user_avatar');
   }
 
   /**
@@ -172,7 +173,7 @@ class WP_User_Avatar_Admin {
      * @since 1.9
      * @param array $settings
      */
-    return apply_filters('wpua_register_settings', $settings);
+    return apply_filters('wpua_register_settings', $settings);// @test need filter?
   }
 
   /**

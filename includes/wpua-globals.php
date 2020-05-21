@@ -27,7 +27,6 @@ global $avatar_default,
        $mustache_thumbnail,
        $mustache_avatar,
        $mustache_admin,
-       $wpua_default_avatar_updated,
        $wpua_users_updated,
        $wpua_media_updated,
        $upload_size_limit,
@@ -51,6 +50,13 @@ $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
 $wpua_resize_h = get_option('wp_user_avatar_resize_h');
 $wpua_resize_w = get_option('wp_user_avatar_resize_w');
 
+
+/****************************************************
+* @todo now now 
+replace this with my own default sizes which are 30,40,50,60,100
+* 
+****************************************************/
+
 // Default avatar 512x512
 $mustache_original = WPUA_URL.'images/wpua.png';
 // Default avatar 300x300
@@ -63,7 +69,6 @@ $mustache_avatar = WPUA_URL.'images/wpua-96x96.png';
 $mustache_admin = WPUA_URL.'images/wpua-32x32.png';
 
 // Check for updates
-$wpua_default_avatar_updated = get_option('wp_user_avatar_default_avatar_updated');
 $wpua_users_updated = get_option('wp_user_avatar_users_updated');
 $wpua_media_updated = get_option('wp_user_avatar_media_updated');
 

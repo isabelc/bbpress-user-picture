@@ -10,49 +10,19 @@ class WP_User_Avatar_Update {
   /**
    * Constructor
    * @since 1.8
-   * @uses bool $wpua_default_avatar_updated
    * @uses bool $wpua_media_updated
    * @uses bool $wpua_users_updated
    * @uses add_action()
    */
   public function __construct() {
-    global $wpua_default_avatar_updated, $wpua_media_updated, $wpua_users_updated;
-    if(empty($wpua_default_avatar_updated)) {
-      add_action('admin_init', array($this, 'wpua_default_avatar'));
-    }
+    global $wpua_media_updated, $wpua_users_updated;
     if(empty($wpua_users_updated)) {
-      add_action('admin_init', array($this, 'wpua_user_meta'));
+      add_action('admin_init', array($this, 'wpua_user_meta'));// @test need?
     }
     if(empty($wpua_media_updated)) {
-      add_action('admin_init', array($this, 'wpua_media_state'));
+      add_action('admin_init', array($this, 'wpua_media_state'));// @test need?
     }
   }
-
-  /**
-   * Update default avatar to new format
-   * @since 1.4
-   * @uses string $avatar_default
-   * @uses string $mustache_original
-   * @uses int $wpua_avatar_default
-   * @uses update_option()
-   * @uses wp_get_attachment_image_src()
-   */
-  public function wpua_default_avatar() {
-    global $avatar_default, $mustache_original, $wpua_avatar_default;
-    // If default avatar is the old mustache URL, update it
-    if($avatar_default == $mustache_original) {
-      update_option('avatar_default', 'wp_user_avatar');
-    }
-    // If user had an image URL as the default avatar, replace with ID instead
-    if(!empty($wpua_avatar_default)) {
-      $wpua_avatar_default_image = wp_get_attachment_image_src($wpua_avatar_default, 'medium');
-      if($avatar_default == $wpua_avatar_default_image[0]) {
-        update_option('avatar_default', 'wp_user_avatar');
-      }
-    }
-    update_option('wp_user_avatar_default_avatar_updated', '1');
-  }
-
   /**
    * Rename user meta to match database settings
    * @since 1.4
