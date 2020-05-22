@@ -178,20 +178,10 @@ class WP_User_Avatar_Admin {
 
   /**
    * Add default avatar
-   * @since 1.4
-   * @uses string $avatar_default
-   * @uses string $mustache_admin
-   * @uses string $mustache_medium
-   * @uses int $wpua_avatar_default
-   * @uses object $wpua_functions
-   * @uses get_avatar()
-   * @uses remove_filter()
-   * @uses wpua_attachment_is_image()
-   * @uses wpua_get_attachment_image_src()
    * @return string
    */
   public function wpua_add_default_avatar() {
-    global $avatar_default, $mustache_admin, $mustache_medium, $wpua_avatar_default, $wpua_functions;
+    global $avatar_default, $mustache_admin, $wpua_avatar_default, $wpua_functions;
     // Remove get_avatar filter
     remove_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'));
     // Set avatar_list variable

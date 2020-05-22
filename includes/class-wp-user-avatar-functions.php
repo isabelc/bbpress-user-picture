@@ -52,7 +52,6 @@ class WP_User_Avatar_Functions {
      * @since 4.1.9
      * @param string $url
      * @param int|string $id_or_email
-     * @param array $args
      */
     return apply_filters( 'wpua_get_avatar_filter_url', $url, $id_or_email);
 
@@ -66,7 +65,7 @@ class WP_User_Avatar_Functions {
         
         $default_image_details = array();
 
-        $size = !empty($args['size'])?$args['size']:96;
+        $size = !empty($args['size'])?$args['size']:100;
         
         // Show custom Default Avatar
         if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
@@ -77,15 +76,15 @@ class WP_User_Avatar_Functions {
           // Add dimensions if numeric size        
         } else {
           // Get mustache image based on numeric size comparison
-          if($size > get_option('medium_size_w')) {
+          if($size >= 100) {
             $url = $mustache_original;
-          } elseif($size <= get_option('medium_size_w') && $size > get_option('thumbnail_size_w')) {
+          } elseif($size < 100 && $size >= 60) {
             $url = $mustache_medium;
-          } elseif($size <= get_option('thumbnail_size_w') && $size > 96) {
+          } elseif($size < 60 && $size >= 50) {
             $url = $mustache_thumbnail;
-          } elseif($size <= 96 && $size > 32) {
+          } elseif($size < 50 && $size >= 40) {
             $url = $mustache_avatar;
-          } elseif($size <= 32) {
+          } elseif($size < 40) {
             $url = $mustache_admin;
           }
           // Add dimensions if numeric size
@@ -211,15 +210,15 @@ class WP_User_Avatar_Functions {
         
         } else {
           // Get mustache image based on numeric size comparison
-          if($size > get_option('medium_size_w')) {
+          if($size >= 100) {
             $default = $mustache_original;
-          } elseif($size <= get_option('medium_size_w') && $size > get_option('thumbnail_size_w')) {
+          } elseif($size < 100 && $size >= 60) {
             $default = $mustache_medium;
-          } elseif($size <= get_option('thumbnail_size_w') && $size > 96) {
+          } elseif($size < 60 && $size >= 50) {
             $default = $mustache_thumbnail;
-          } elseif($size <= 96 && $size > 32) {
+          } elseif($size < 50 && $size >= 40) {
             $default = $mustache_avatar;
-          } elseif($size <= 32) {
+          } elseif($size < 40) {
             $default = $mustache_admin;
           }
           // Add dimensions if numeric size
@@ -237,7 +236,7 @@ class WP_User_Avatar_Functions {
    */
   public function wpua_get_avatar_filter($avatar, $id_or_email="", $size="", $default="", $alt="") {
     
-    global $avatar_default, $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $post, $wpua_avatar_default, $wpua_functions;
+    global $avatar_default, $post, $wpua_avatar_default, $wpua_functions;
     // User has WPUA
 
     if( $alt == '' ) {
@@ -283,7 +282,7 @@ class WP_User_Avatar_Functions {
    * @return string $default
    */
   public function wpua_get_avatar_original($id_or_email="", $size="", $default="", $alt="") {
-    global $avatar_default, $mustache_avatar, $wpua_avatar_default, $wpua_functions;
+    global $avatar_default, $mustache_original, $wpua_avatar_default, $wpua_functions;
     // Remove get_avatar filter
     remove_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'));
     if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
@@ -291,7 +290,7 @@ class WP_User_Avatar_Functions {
         $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, $size_numeric_w_x_h);
         $default = $wpua_avatar_default_image[0];
     } else {
-      $default = $mustache_avatar;
+      $default = $mustache_original;
     }
     // Enable get_avatar filter
     add_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'), 10, 5);
@@ -307,7 +306,7 @@ class WP_User_Avatar_Functions {
    * @return string $avatar
    */
   public function get_wp_user_avatar($id_or_email="", $size='96', $align="", $alt="") {
-    global $all_sizes, $avatar_default, $blog_id, $post, $wpdb, $wpua_avatar_default, $wpua_functions, $_wp_additional_image_sizes;
+    global $all_sizes, $blog_id, $wpdb, $wpua_functions, $_wp_additional_image_sizes;
     $email='unknown@gravatar.com';
     // Checks if comment 
     
@@ -383,7 +382,7 @@ class WP_User_Avatar_Functions {
         $avatar = preg_replace("/(width|height)=\'\d*\'\s/", "", $avatar);
       }
       $replace = array('wp-user-avatar ', 'wp-user-avatar-'.$get_size.' ', 'wp-user-avatar-'.$size.' ', 'avatar-'.$get_size, ' photo');
-      $replacements = array("", "", "", 'avatar-'.$size, 'wp-user-avatar wp-user-avatar-'.$size.$alignclass.' photo');
+      $replacements = array("", "", "", 'avatar-'.$size.' wp-user-avatar wp-user-avatar-'.$size.$alignclass.' photo');
       $avatar = str_replace($replace, $replacements, $avatar);
     }
     return $avatar;

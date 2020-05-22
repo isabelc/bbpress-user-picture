@@ -47,24 +47,16 @@ $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
 // Resize dimensions
 $wpua_resize_h = get_option('wp_user_avatar_resize_h');
 $wpua_resize_w = get_option('wp_user_avatar_resize_w');
-
-
-/****************************************************
-* @todo now now 
-replace this with my own default sizes which are 30,40,50,60,100
-* 
-****************************************************/
-
-// Default avatar 512x512
-$mustache_original = WPUA_URL.'images/wpua.png';
-// Default avatar 300x300
-$mustache_medium = WPUA_URL.'images/wpua-300x300.png';
-// Default avatar 150x150
-$mustache_thumbnail = WPUA_URL.'images/wpua-150x150.png';
-// Default avatar 96x96
-$mustache_avatar = WPUA_URL.'images/wpua-96x96.png';
-// Default avatar 32x32
-$mustache_admin = WPUA_URL.'images/wpua-32x32.png';
+// Default avatar 100x100
+$mustache_original = WPUA_URL.'images/bbpup.png';
+// Default avatar 60x60
+$mustache_medium = WPUA_URL.'images/bbpup-60x60.png';
+// Default avatar 50x50
+$mustache_thumbnail = WPUA_URL.'images/bbpup-50x50.png';
+// Default avatar 40x40
+$mustache_avatar = WPUA_URL.'images/bbpup-40x40.png';
+// Default avatar 30x30
+$mustache_admin = WPUA_URL.'images/bbpup-30x30.png';
 // Server upload size limit
 $upload_size_limit = wp_max_upload_size();
 // Convert to KB
