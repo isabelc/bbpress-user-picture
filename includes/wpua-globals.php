@@ -27,7 +27,6 @@ global $avatar_default,
        $mustache_thumbnail,
        $mustache_avatar,
        $mustache_admin,
-       $wpua_media_updated,
        $upload_size_limit,
        $upload_size_limit_with_units,
        $wpua_user_upload_size_limit,
@@ -66,10 +65,6 @@ $mustache_thumbnail = WPUA_URL.'images/wpua-150x150.png';
 $mustache_avatar = WPUA_URL.'images/wpua-96x96.png';
 // Default avatar 32x32
 $mustache_admin = WPUA_URL.'images/wpua-32x32.png';
-
-// Check for updates
-$wpua_media_updated = get_option('wp_user_avatar_media_updated');
-
 // Server upload size limit
 $upload_size_limit = wp_max_upload_size();
 // Convert to KB
