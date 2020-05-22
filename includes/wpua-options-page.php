@@ -45,7 +45,7 @@ $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
                 <legend class="screen-reader-text"><span>Upload Size Limit (only for Contributors & Subscribers)</span></legend>
                 <input name="wp_user_avatar_upload_size_limit" type="text" id="wp_user_avatar_upload_size_limit" value="'.$wpua_upload_size_limit.'" class="regular-text" />
                 <span id="wpua-readable-size">'.$wpua_upload_size_limit_with_units.'</span>
-                <span id="wpua-readable-size-error">'.sprintf('%s exceeds the maximum upload size for this site.', "").'</span>
+                <span id="wpua-readable-size-error">  exceeds the maximum upload size for this site.</span>
                 <div id="wpua-slider"></div>
                 <span class="description">'.sprintf('Maximum upload file size: %dKB.', $server_upload_size_limit).'</span>
               </fieldset>
