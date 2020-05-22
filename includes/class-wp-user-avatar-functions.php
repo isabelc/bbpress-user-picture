@@ -231,12 +231,8 @@ class WP_User_Avatar_Functions {
     global $avatar_default, $wpua_functions;
     // User has WPUA
 
-    if( $alt == '' ) {
-       $alt = apply_filters('wpua_default_alt_tag',__("Avatar",'wp-user-avatar'));
-    }
-    
-
-     $avatar = str_replace('gravatar_default','',$avatar);
+    if( $alt == '' ) $alt = 'Avatar';
+    $avatar = str_replace('gravatar_default','',$avatar);
     if(is_object($id_or_email)) {
       if(!empty($id_or_email->comment_author_email)) {
         $avatar = get_wp_user_avatar($id_or_email, $size, $default, $alt);
@@ -302,10 +298,7 @@ class WP_User_Avatar_Functions {
     $email='unknown@gravatar.com';
     // Checks if comment 
     
-    if( $alt == '' ) {
-       $alt = apply_filters('wpua_default_alt_tag',__("Avatar",'wp-user-avatar'));
-    }
-
+    if( $alt == '' ) $alt = 'Avatar';
     if(is_object($id_or_email)) {
       // Checks if comment author is registered user by user ID
       if($id_or_email->user_id != 0) {
