@@ -26,19 +26,9 @@ if($wpua_upload_size_limit > 1024) {
 $wpua_upload_size_limit_with_units = (int) $wpua_upload_size_limit.'KB';
 $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
 $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
-$wpua_options_page_title = __('WP User Avatar', 'wp-user-avatar');
-
-
-/**
- * Filter admin page title
- * @since 1.9
- * @param string $wpua_options_page_title
- */
-$wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_options_page_title);
 ?>
-
 <div class="wrap">
-  <h2><?php echo $wpua_options_page_title; ?></h2>
+  <h2>bbPress User Picture</h2>
   <table><tr valign="top">
     <td align="top">
   <form method="post" action="<?php echo admin_url('options.php'); ?>">
