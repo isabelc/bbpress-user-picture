@@ -287,7 +287,7 @@ class WP_User_Avatar_Functions {
      * @since 1.9
      * @param string $default
      */
-    return apply_filters('wpua_get_avatar_original', $default);
+    return $default;
   }
   /**
    * Find WPUA, show get_avatar if empty
