@@ -47,15 +47,7 @@ class WP_User_Avatar_Functions {
       $url = $this->wpua_get_default_avatar_url($url, $id_or_email, $args);
     
     }
-    /**
-     * Filter get_avatar_url filter
-     * @since 4.1.9
-     * @param string $url
-     * @param int|string $id_or_email
-     */
-    return apply_filters( 'wpua_get_avatar_filter_url', $url, $id_or_email);
-
-
+    return $url;
   }
 
 
