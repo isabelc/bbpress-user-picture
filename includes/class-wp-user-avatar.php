@@ -11,7 +11,7 @@ class WP_User_Avatar {
    * Constructor
    */
   public function __construct() {
-    global $pagenow, $show_avatars, $wpua_admin;
+    global $pagenow, $wpua_admin;
     // Add WPUA to profile for users with permission
     if($this->wpua_is_author_or_above() || is_user_logged_in()) {
       // Profile functions and scripts
@@ -212,7 +212,11 @@ class WP_User_Avatar {
    * Update user meta
    */
   public static function wpua_action_process_option_update($user_id) {
-    global $blog_id, $post, $wpdb, $wp_user_avatar, $wpua_resize_crop, $wpua_resize_h, $wpua_resize_upload, $wpua_resize_w, $wpua_admin;
+    global $blog_id, $post, $wpdb, $wp_user_avatar, $wpua_admin;
+    $wpua_resize_crop = get_option('wp_user_avatar_resize_crop');
+    $wpua_resize_w = get_option('wp_user_avatar_resize_w');
+    $wpua_resize_h = get_option('wp_user_avatar_resize_h');
+    $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
     // Check if user has publish_posts capability
     if($wp_user_avatar->wpua_is_author_or_above()) {
       $wpua_id = isset($_POST['wp-user-avatar']) ? strip_tags($_POST['wp-user-avatar']) : "";

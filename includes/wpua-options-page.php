@@ -6,13 +6,29 @@
  * @version 1.9.13
  */
 
-global $show_avatars, $upload_size_limit_with_units, $wpua_admin, $wpua_edit_avatar, $wpua_resize_crop, $wpua_resize_upload, $wpua_subscriber, $wpua_upload_size_limit, $wpua_upload_size_limit_with_units;
+global $show_avatars, $wpua_admin, $wpua_edit_avatar, $wpua_subscriber, $wpua_upload_size_limit;
 $updated = false;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
   $updated = true;
 }
+$server_upload_size_limit = wp_max_upload_size();
+// Convert to KB
+if($server_upload_size_limit > 1024) {
+  $server_upload_size_limit /= 1024;
+}
+$server_upload_size_limit = (int) $server_upload_size_limit;
+
+$wpua_resize_crop = get_option('wp_user_avatar_resize_crop');
+// Convert to KB
+if($wpua_upload_size_limit > 1024) {
+  $wpua_upload_size_limit /= 1024;
+}
+$wpua_upload_size_limit_with_units = (int) $wpua_upload_size_limit.'KB';
+$wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
 $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
 $wpua_options_page_title = __('WP User Avatar', 'wp-user-avatar');
+
+
 /**
  * Filter admin page title
  * @since 1.9
@@ -45,7 +61,7 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
                 <span id="wpua-readable-size">'.$wpua_upload_size_limit_with_units.'</span>
                 <span id="wpua-readable-size-error">'.sprintf(__('%s exceeds the maximum upload size for this site.','wp-user-avatar'), "").'</span>
                 <div id="wpua-slider"></div>
-                <span class="description">'.sprintf('Maximum upload file size: %d%s.', esc_html(wp_max_upload_size()), esc_html(' bytes ('.$upload_size_limit_with_units.')')).'</span>
+                <span class="description">'.sprintf('Maximum upload file size: %dKB.', $server_upload_size_limit).'</span>
               </fieldset>
               <fieldset>
                 <label for="wp_user_avatar_edit_avatar">
