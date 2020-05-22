@@ -78,12 +78,7 @@ $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
           </tr>
         </table>
       </div>';
-      /**
-       * Filter Subscriber settings
-       * @since 1.9
-       * @param array $wpua_subscriber_settings
-       */
-      $wpua_subscriber_settings = apply_filters('wpua_subscriber_settings', $wpua_subscriber_settings);
+
       echo implode("", $wpua_subscriber_settings);
     ?>
     <table class="form-table">

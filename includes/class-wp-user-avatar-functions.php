@@ -86,70 +86,25 @@ class WP_User_Avatar_Functions {
   }
   /**
    * Check if local image
-   * @since 1.9.2
-   * @param int $attachment_id
-   * @uses apply_filters()
-   * @uses wp_attachment_is_image()
    * @return bool
    */
   public function wpua_attachment_is_image($attachment_id) {
-    $is_image = wp_attachment_is_image($attachment_id);
-    /**
-     * Filter local image check
-     * @since 1.9.2
-     * @param bool $is_image
-     * @param int $attachment_id
-     */
-    $is_image = apply_filters('wpua_attachment_is_image', $is_image, $attachment_id);
-    return (bool) $is_image;
+    return (bool) wp_attachment_is_image($attachment_id);
   }
 
   /**
    * Get local image tag
-   * @since 1.9.2
-   * @param int $attachment_id
-   * @param int|string $size
-   * @param bool $icon
-   * @param string $attr
-   * @uses apply_filters()
-   * @uses wp_get_attachment_image()
    * @return string
    */
   public function wpua_get_attachment_image($attachment_id, $size='thumbnail', $icon=0, $attr='') {
-    $image = wp_get_attachment_image($attachment_id, $size, $icon, $attr);
-    /**
-     * Filter local image tag
-     * @since 1.9.2
-     * @param string $image
-     * @param int $attachment_id
-     * @param int|string $size
-     * @param bool $icon
-     * @param string $attr
-     */
-    return apply_filters('wpua_get_attachment_image', $image, $attachment_id, $size, $icon, $attr);
+    return wp_get_attachment_image($attachment_id, $size, $icon, $attr);
   }
 
   /**
-   * Get local image src
-   * @since 1.9.2
-   * @param int $attachment_id
-   * @param int|string $size
-   * @param bool $icon
-   * @uses apply_filters()
-   * @uses wp_get_attachment_image_src()
    * @return array
    */
   public function wpua_get_attachment_image_src($attachment_id, $size='thumbnail', $icon=0) {
-    $image_src_array = wp_get_attachment_image_src($attachment_id, $size, $icon);
-    /**
-     * Filter local image src
-     * @since 1.9.2
-     * @param array $image_src_array
-     * @param int $attachment_id
-     * @param int|string $size
-     * @param bool $icon
-     */
-    return apply_filters('wpua_get_attachment_image_src', $image_src_array, $attachment_id, $size, $icon);
+    return wp_get_attachment_image_src($attachment_id, $size, $icon);
   }
 
   /**
@@ -253,16 +208,7 @@ class WP_User_Avatar_Functions {
         
          }
     }
-    /**
-     * Filter get_avatar filter
-     * @since 1.9
-     * @param string $avatar
-     * @param int|string $id_or_email
-     * @param int|string $size
-     * @param string $default
-     * @param string $alt
-     */
-    return apply_filters('wpua_get_avatar_filter', $avatar, $id_or_email, $size, $default, $alt);
+    return $avatar;
   }
 
   /**

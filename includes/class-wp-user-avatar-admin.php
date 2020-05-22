@@ -151,10 +151,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Whitelist settings
-   * @since 1.9
-   * @uses apply_filters()
-   * @uses register_setting()
-   * @return array
    */
   public function wpua_register_settings() {
     $settings = array();
@@ -168,12 +164,7 @@ class WP_User_Avatar_Admin {
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_upload', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_w', 'intval');
     $settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_upload_size_limit', 'intval');
-    /**
-     * Filter admin whitelist settings
-     * @since 1.9
-     * @param array $settings
-     */
-    return apply_filters('wpua_register_settings', $settings);// @test need filter?
+    return $settings;
   }
 
   /**
@@ -321,29 +312,18 @@ class WP_User_Avatar_Admin {
 
   /**
    * Add media states
-   * @since 1.4
-   * @param array $states
-   * @uses object $post
-   * @uses int $wpua_avatar_default
-   * @uses apply_filters()
-   * @uses get_post_custom_values()
    * @return array
    */
   public function wpua_add_media_state($states) {
     global $post, $wpua_avatar_default;
     $is_wpua = get_post_custom_values('_wp_attachment_wp_user_avatar', $post->ID);
     if(!empty($is_wpua)) {
-      $states[] = __('Avatar','wp-user-avatar');
+      $states[] = 'Avatar';
     }
     if(!empty($wpua_avatar_default) && ($wpua_avatar_default == $post->ID)) {
-      $states[] = __('Default Avatar','wp-user-avatar');
+      $states[] = 'Default Avatar';
     }
-    /**
-     * Filter media states
-     * @since 1.4
-     * @param array $states
-     */
-    return apply_filters('wpua_add_media_state', $states);
+    return $states;
   }
   
 }

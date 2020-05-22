@@ -67,12 +67,6 @@ class WP_User_Avatar_Subscriber {
 
   /**
    * Restrict access to pages
-   * @since 1.4
-   * @uses string $pagenow
-   * @uses bool $wpua_edit_avatar
-   * @uses apply_filters()
-   * @uses do_action()
-   * @uses wp_die()
    */
   public function wpua_subscriber_offlimits() {
     global $pagenow, $wpua_edit_avatar;
@@ -80,15 +74,9 @@ class WP_User_Avatar_Subscriber {
     if((bool) $wpua_edit_avatar != 1) {
       array_push($offlimits, 'post.php');
     }
-    /**
-     * Filter restricted pages
-     * @since 1.9
-     * @param array $offlimits
-     */
-    $offlimits = apply_filters('wpua_subscriber_offlimits', $offlimits);
     if(in_array($pagenow, $offlimits)) {
       do_action('admin_page_access_denied');
-      wp_die(__('You do not have sufficient permissions to access this page.','wp-user-avatar'));
+      wp_die('You do not have sufficient permissions to access this page.');
     }
   }
 

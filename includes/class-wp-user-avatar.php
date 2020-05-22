@@ -351,19 +351,11 @@ class WP_User_Avatar {
 
   /**
    * Check if current user has at least Author privileges
-   * @since 1.8.5
-   * @uses current_user_can()
-   * @uses apply_filters()
    * @return bool
    */
   public function wpua_is_author_or_above() {
-    $is_author_or_above = (current_user_can('edit_published_posts') && current_user_can('upload_files') && current_user_can('publish_posts') && current_user_can('delete_published_posts')) ? true : false;
-    /**
-     * Filter Author privilege check
-     * @since 1.9.2
-     * @param bool $is_author_or_above
-     */
-    return (bool) apply_filters('wpua_is_author_or_above', $is_author_or_above);
+    $is_author_or_above = (current_user_can('edit_published_posts') && current_user_can('upload_files') && current_user_can('publish_posts') && current_user_can('delete_published_posts')) ?: false;
+    return $is_author_or_above;
   }
 }
 

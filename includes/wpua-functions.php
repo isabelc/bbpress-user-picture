@@ -70,10 +70,6 @@ function wpua_after_avatar() {
 
 /**
  * Before avatar container
- * @since 1.6
- * @uses apply_filters()
- * @uses bbp_is_edit()
- * @uses wpuf_has_shortcode()
  */
 function wpua_do_before_avatar() {
   $wpua_profile_title = '<h3>'.__('Avatar','wp-user-avatar').'</h3>';
@@ -87,14 +83,7 @@ function wpua_do_before_avatar() {
   <?php if(class_exists('bbPress') && bbp_is_edit()) : // Add to bbPress profile with same style ?>
     <fieldset id="bbp-user-pic" class="bbp-form">
       <legend><?php _e('Image','wp-user-avatar'); ?></legend>
-  <?php elseif(class_exists('WPUF_Main') && wpuf_has_shortcode('wpuf_editprofile')) : // Add to WP User Frontend profile with same style ?>
-    <fieldset>
-      <legend><?php _e('Avatar','wp-user-avatar') ?></legend>
-      <table class="wpuf-table">
-        <tr>
-          <th><label for="wp_user_avatar"><?php _e('Image','wp-user-avatar'); ?></label></th>
-          <td>
-  <?php else : // Add to profile without table ?>
+  <?php else : ?>
     <div class="wpua-edit-container">
       <?php echo $wpua_profile_title; ?>
   <?php endif; ?>
