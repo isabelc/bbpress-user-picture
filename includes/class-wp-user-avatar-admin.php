@@ -19,7 +19,7 @@ class WP_User_Avatar_Admin {
   public function __construct() {
     global $show_avatars;
     // Initialize default settings
-    register_activation_hook(WPUA_DIR.'bbpress-user-pic.php', array($this, 'wpua_options'));
+    register_activation_hook(WPUA_DIR.'bbp-user-pic.php', array($this, 'wpua_options'));
     // Settings saved to wp_options
     add_action('admin_init', array($this, 'wpua_options'));
     // Admin menu settings

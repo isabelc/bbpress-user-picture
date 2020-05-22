@@ -2,7 +2,7 @@
 /*
 Plugin Name: bbPress User Picture
 Description: Let bbPress forum users upload their own profile image.
-Version: 0.1.alpha-3
+Version: 0.1.alpha-4
 Requires PHP: 7.2
 Author: Isabel Castillo
 License: GPL v2 or later
