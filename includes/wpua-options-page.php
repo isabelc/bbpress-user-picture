@@ -34,52 +34,44 @@ $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
   <form method="post" action="<?php echo admin_url('options.php'); ?>">
     <?php settings_fields('wpua-settings-group'); ?>
     <?php do_settings_fields('wpua-settings-group', "");
-      // Format settings in table
-      $wpua_subscriber_settings = array();
-      $wpua_subscriber_settings['subscriber-settings'] = '<div id="wpua-contributors-subscribers">
+    echo '<div id="wpua-contributors-subscribers">
         <table class="form-table">
           <tr valign="top">
             <th scope="row">
-              <label for="wp_user_avatar_upload_size_limit">'
-                .__('Upload Size Limit', 'wp-user-avatar').' '.__('(only for Contributors & Subscribers)', 'wp-user-avatar').'
-              </label>
+              <label for="wp_user_avatar_upload_size_limit">Upload Size Limit (only for Contributors & Subscribers).</label>
             </th>
             <td>
               <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Upload Size Limit', 'wp-user-avatar').' '. __('(only for Contributors & Subscribers)', 'wp-user-avatar').'</span></legend>
+                <legend class="screen-reader-text"><span>Upload Size Limit (only for Contributors & Subscribers)</span></legend>
                 <input name="wp_user_avatar_upload_size_limit" type="text" id="wp_user_avatar_upload_size_limit" value="'.$wpua_upload_size_limit.'" class="regular-text" />
                 <span id="wpua-readable-size">'.$wpua_upload_size_limit_with_units.'</span>
-                <span id="wpua-readable-size-error">'.sprintf(__('%s exceeds the maximum upload size for this site.','wp-user-avatar'), "").'</span>
+                <span id="wpua-readable-size-error">'.sprintf('%s exceeds the maximum upload size for this site.', "").'</span>
                 <div id="wpua-slider"></div>
                 <span class="description">'.sprintf('Maximum upload file size: %dKB.', $server_upload_size_limit).'</span>
               </fieldset>
               <fieldset>
                 <label for="wp_user_avatar_edit_avatar">
-                  <input name="wp_user_avatar_edit_avatar" type="checkbox" id="wp_user_avatar_edit_avatar" value="1" '.checked($wpua_edit_avatar, 1, 0).' />'
-                  .__('Allow users to edit avatars', 'wp-user-avatar').'
-                </label>
+                  <input name="wp_user_avatar_edit_avatar" type="checkbox" id="wp_user_avatar_edit_avatar" value="1" '.checked($wpua_edit_avatar, 1, 0).' /> Allow users to edit avatars </label>
               </fieldset>
               <fieldset>
                 <label for="wp_user_avatar_resize_upload">
-                  <input name="wp_user_avatar_resize_upload" type="checkbox" id="wp_user_avatar_resize_upload" value="1" '.checked($wpua_resize_upload, 1, 0).' />'
-                  .__('Resize avatars on upload', 'wp-user-avatar').'
+                  <input name="wp_user_avatar_resize_upload" type="checkbox" id="wp_user_avatar_resize_upload" value="1" '.checked($wpua_resize_upload, 1, 0).' />
+                  Resize avatars on upload 
                 </label>
               </fieldset>
               <fieldset id="wpua-resize-sizes"'.$hide_resize.'>
-                <label for="wp_user_avatar_resize_w">'.__('Width','wp-user-avatar').'</label>
+                <label for="wp_user_avatar_resize_w">Width</label>
                 <input name="wp_user_avatar_resize_w" type="number" step="1" min="0" id="wp_user_avatar_resize_w" value="'.get_option('wp_user_avatar_resize_w').'" class="small-text" />
-                <label for="wp_user_avatar_resize_h">'.__('Height','wp-user-avatar').'</label>
+                <label for="wp_user_avatar_resize_h">Height</label>
                 <input name="wp_user_avatar_resize_h" type="number" step="1" min="0" id="wp_user_avatar_resize_h" value="'.get_option('wp_user_avatar_resize_h').'" class="small-text" />
                 <br />
                 <input name="wp_user_avatar_resize_crop" type="checkbox" id="wp_user_avatar_resize_crop" value="1" '.checked('1', $wpua_resize_crop, 0).' />
-                <label for="wp_user_avatar_resize_crop">'.__('Crop avatars to exact dimensions', 'wp-user-avatar').'</label>
+                <label for="wp_user_avatar_resize_crop">Crop avatars to exact dimensions</label>
               </fieldset>
             </td>
           </tr>
         </table>
       </div>';
-
-      echo implode("", $wpua_subscriber_settings);
     ?>
     <table class="form-table">
       <tr valign="top">
