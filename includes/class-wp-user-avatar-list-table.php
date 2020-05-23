@@ -204,7 +204,7 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
    * Display for rows in table
    */
   public function display_rows() {
-    global $post, $wpdb;
+    global $post, $wpdb, $blog_id;
     add_filter('the_title','esc_html');
     $alt = "";
     while (have_posts()) : the_post();
@@ -309,7 +309,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
       <?php
         break;
         case 'parent':
-        global $blog_id, $wpdb;
         // Find all users with this WPUA
         $wpua_metakey = $wpdb->get_blog_prefix($blog_id).'user_avatar';
         $wpuas = $wpdb->get_results($wpdb->prepare("SELECT wpum.user_id FROM $wpdb->usermeta AS wpum, $wpdb->users AS wpu WHERE wpum.meta_key = %s AND wpum.meta_value = %d AND wpum.user_id = wpu.ID ORDER BY wpu.user_login", $wpua_metakey, $post->ID));
