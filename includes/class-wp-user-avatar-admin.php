@@ -201,7 +201,7 @@ class WP_User_Avatar_Admin {
       $avatar_list .= '<br />';
     }
     // Show remove link if custom Default Avatar is set
-    if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
+    if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
       $avatar_thumb_src = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array(32,32));
       $avatar_thumb = $avatar_thumb_src[0];
       $hide_remove = "";
@@ -275,16 +275,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Show thumbnail in Users table
-   * @since 1.4
-   * @param string $value
-   * @param string $column_name
-   * @param int $user_id
-   * @uses int $blog_id
-   * @uses object $wpdb
-   * @uses object $wpua_functions
-   * @uses get_blog_prefix()
-   * @uses get_user_meta()
-   * @uses wpua_get_attachment_image()
    * @return string $value
    */
   public function wpua_show_column($value, $column_name, $user_id) {

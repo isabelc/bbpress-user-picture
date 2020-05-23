@@ -60,7 +60,7 @@ class WP_User_Avatar_Functions {
         $size = !empty($args['size'])?$args['size']:100;
         
         // Show custom Default Avatar
-        if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
+        if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
           // Get image
           $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array($size,$size));
           // Image src
@@ -85,14 +85,6 @@ class WP_User_Avatar_Functions {
         return $url;
   }
   /**
-   * Check if local image
-   * @return bool
-   */
-  public function wpua_attachment_is_image($attachment_id) {
-    return (bool) wp_attachment_is_image($attachment_id);
-  }
-
-  /**
    * Get local image tag
    * @return string
    */
@@ -109,23 +101,10 @@ class WP_User_Avatar_Functions {
 
   /**
    * Returns true if user has wp_user_avatar
-   * @since 1.1
-   * @param int|string $id_or_email
-   * @param bool $has_wpua
-   * @param object $user
-   * @param int $user_id
-   * @uses int $blog_id
-   * @uses object $wpdb
-   * @uses int $wpua_avatar_default
-   * @uses object $wpua_functions
-   * @uses get_user_by()
-   * @uses get_user_meta()
-   * @uses get_blog_prefix()
-   * @uses wpua_attachment_is_image()
    * @return bool
    */
   public function has_wp_user_avatar($id_or_email="", $has_wpua=0, $user="", $user_id="") {
-    global $blog_id, $wpdb, $wpua_avatar_default, $wpua_functions, $avatar_default;
+    global $blog_id, $wpdb, $wpua_avatar_default, $avatar_default;
     if(!is_object($id_or_email) && !empty($id_or_email)) {
       // Find user by ID or e-mail address
 
@@ -135,7 +114,7 @@ class WP_User_Avatar_Functions {
     }
     $wpua = get_user_meta($user_id, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);
     // Check if avatar is same as default avatar or on excluded list
-    $has_wpua = !empty($wpua) && ($avatar_default!='wp_user_avatar' or $wpua != $wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua) ? true : false;
+    $has_wpua = !empty($wpua) && ($avatar_default!='wp_user_avatar' or $wpua != $wpua_avatar_default) && wp_attachment_is_image($wpua) ? true : false;
     return (bool) $has_wpua;
   }
   /**
@@ -147,7 +126,7 @@ class WP_User_Avatar_Functions {
         
         $default_image_details = array();
         // Show custom Default Avatar
-        if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
+        if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
           // Get image
           $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array($size,$size));
           // Image src
@@ -219,7 +198,7 @@ class WP_User_Avatar_Functions {
     global $mustache_original, $wpua_avatar_default, $wpua_functions;
     // Remove get_avatar filter
     remove_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'));
-    if(!empty($wpua_avatar_default) && $wpua_functions->wpua_attachment_is_image($wpua_avatar_default)) {
+    if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
         $size_numeric_w_x_h = array( get_option( $size . '_size_w' ), get_option( $size . '_size_h' ) );
         $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, $size_numeric_w_x_h);
         $default = $wpua_avatar_default_image[0];
@@ -284,7 +263,7 @@ class WP_User_Avatar_Functions {
     // Add alignment class
     $alignclass = !empty($align) && ($align == 'left' || $align == 'right' || $align == 'center') ? ' align'.$align : ' alignnone';
     // User has WPUA, check if on excluded list and bypass get_avatar
-    if(!empty($wpua_meta) && $wpua_functions->wpua_attachment_is_image($wpua_meta)) {
+    if(!empty($wpua_meta) && wp_attachment_is_image($wpua_meta)) {
       // Numeric size use size array
       $get_size = is_numeric($size) ? array($size,$size) : $size;
       // Get image src
