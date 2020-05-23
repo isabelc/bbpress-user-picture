@@ -202,7 +202,7 @@ class WP_User_Avatar_Admin {
     }
     // Show remove link if custom Default Avatar is set
     if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
-      $avatar_thumb_src = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array(32,32));
+      $avatar_thumb_src = wp_get_attachment_image_src($wpua_avatar_default, array(32,32));
       $avatar_thumb = $avatar_thumb_src[0];
       $hide_remove = "";
     } else {

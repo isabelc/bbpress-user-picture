@@ -53,7 +53,7 @@ class WP_User_Avatar_Functions {
 
   function wpua_get_default_avatar_url($url, $id_or_email, $args){
 
-        global $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $wpua_avatar_default, $wpua_functions;
+        global $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $wpua_avatar_default;
         
         $default_image_details = array();
 
@@ -62,7 +62,7 @@ class WP_User_Avatar_Functions {
         // Show custom Default Avatar
         if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
           // Get image
-          $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array($size,$size));
+          $wpua_avatar_default_image = wp_get_attachment_image_src($wpua_avatar_default, array($size,$size));
           // Image src
           $url = $wpua_avatar_default_image[0];
           // Add dimensions if numeric size        
@@ -91,14 +91,6 @@ class WP_User_Avatar_Functions {
   public function wpua_get_attachment_image($attachment_id, $size='thumbnail', $icon=0, $attr='') {
     return wp_get_attachment_image($attachment_id, $size, $icon, $attr);
   }
-
-  /**
-   * @return array
-   */
-  public function wpua_get_attachment_image_src($attachment_id, $size='thumbnail', $icon=0) {
-    return wp_get_attachment_image_src($attachment_id, $size, $icon);
-  }
-
   /**
    * Returns true if user has wp_user_avatar
    * @return bool
@@ -122,13 +114,13 @@ class WP_User_Avatar_Functions {
   */
   public function wpua_default_image($size)
   {
-        global $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $wpua_avatar_default, $wpua_functions;
+        global $mustache_admin, $mustache_avatar, $mustache_medium, $mustache_original, $mustache_thumbnail, $wpua_avatar_default;
         
         $default_image_details = array();
         // Show custom Default Avatar
         if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
           // Get image
-          $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, array($size,$size));
+          $wpua_avatar_default_image = wp_get_attachment_image_src($wpua_avatar_default, array($size,$size));
           // Image src
           $default = $wpua_avatar_default_image[0];
           // Add dimensions if numeric size
@@ -162,7 +154,7 @@ class WP_User_Avatar_Functions {
    */
   public function wpua_get_avatar_filter($avatar, $id_or_email="", $size="", $default="", $alt="") {
     
-    global $avatar_default, $wpua_functions;
+    global $avatar_default;
     // User has WPUA
 
     if( $alt == '' ) $alt = 'Avatar';
@@ -200,7 +192,7 @@ class WP_User_Avatar_Functions {
     remove_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'));
     if(!empty($wpua_avatar_default) && wp_attachment_is_image($wpua_avatar_default)) {
         $size_numeric_w_x_h = array( get_option( $size . '_size_w' ), get_option( $size . '_size_h' ) );
-        $wpua_avatar_default_image = $wpua_functions->wpua_get_attachment_image_src($wpua_avatar_default, $size_numeric_w_x_h);
+        $wpua_avatar_default_image = wp_get_attachment_image_src($wpua_avatar_default, $size_numeric_w_x_h);
         $default = $wpua_avatar_default_image[0];
     } else {
       $default = $mustache_original;
@@ -219,7 +211,7 @@ class WP_User_Avatar_Functions {
    * @return string $avatar
    */
   public function get_wp_user_avatar($id_or_email="", $size='96', $align="", $alt="") {
-    global $blog_id, $wpdb, $wpua_functions, $_wp_additional_image_sizes;
+    global $blog_id, $wpdb, $_wp_additional_image_sizes;
     $email='unknown@gravatar.com';
     // Checks if comment 
     
@@ -267,7 +259,7 @@ class WP_User_Avatar_Functions {
       // Numeric size use size array
       $get_size = is_numeric($size) ? array($size,$size) : $size;
       // Get image src
-      $wpua_image = $wpua_functions->wpua_get_attachment_image_src($wpua_meta, $get_size);
+      $wpua_image = wp_get_attachment_image_src($wpua_meta, $get_size);
       // Add dimensions to img only if numeric size was specified
       $dimensions = is_numeric($size) ? ' width="'.$wpua_image[1].'" height="'.$wpua_image[2].'"' : "";
       // Construct the img tag
