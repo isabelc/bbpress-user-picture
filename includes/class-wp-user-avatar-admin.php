@@ -278,9 +278,9 @@ class WP_User_Avatar_Admin {
    * @return string $value
    */
   public function wpua_show_column($value, $column_name, $user_id) {
-    global $blog_id, $wpdb, $wpua_functions;
+    global $blog_id, $wpdb;
     $wpua = get_user_meta($user_id, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);
-    $wpua_image = $wpua_functions->wpua_get_attachment_image($wpua, array(32,32));
+    $wpua_image = wp_get_attachment_image($wpua, array(32,32));
     if($column_name == 'wp-user-avatar') {
       $value = $wpua_image;
     }

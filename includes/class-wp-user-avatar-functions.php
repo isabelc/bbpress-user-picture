@@ -85,13 +85,6 @@ class WP_User_Avatar_Functions {
         return $url;
   }
   /**
-   * Get local image tag
-   * @return string
-   */
-  public function wpua_get_attachment_image($attachment_id, $size='thumbnail', $icon=0, $attr='') {
-    return wp_get_attachment_image($attachment_id, $size, $icon, $attr);
-  }
-  /**
    * Returns true if user has wp_user_avatar
    * @return bool
    */

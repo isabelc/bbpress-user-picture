@@ -202,28 +202,9 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
   /**
    * Display for rows in table
-   * @since 1.8
-   * @uses object $post
-   * @uses object $wpdb
-   * @uses object $wpua_functions
-   * @uses add_filter()
-   * @uses _draft_or_post_title()
-   * @uses _media_states()
-   * @uses current_user_can()
-   * @uses get_attached_file()
-   * @uses get_current_user_id()
-   * @uses get_edit_post_link()
-   * @uses get_edit_user_link()
-   * @uses get_post_mime_type()
-   * @uses get_the_author()
-   * @uses get_the_author_meta()
-   * @uses get_userdata()
-   * @uses have_posts()
-   * @uses the_post()
-   * @uses wpua_get_attachment_image()
    */
   public function display_rows() {
-    global $post, $wpdb, $wpua_functions;
+    global $post, $wpdb;
     add_filter('the_title','esc_html');
     $alt = "";
     while (have_posts()) : the_post();
@@ -260,7 +241,7 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
               $attributes = 'class="column-icon media-icon"'.$style;
               ?>
                 <td <?php echo $attributes ?>><?php
-                  if($thumb = $wpua_functions->wpua_get_attachment_image($post->ID, array(80, 60), true)) {
+                  if($thumb = wp_get_attachment_image($post->ID, array(80, 60), true)) {
                     if($this->is_trash || !$user_can_edit) {
                       echo $thumb;
                     } else {
