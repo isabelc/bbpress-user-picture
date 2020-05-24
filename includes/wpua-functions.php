@@ -49,16 +49,6 @@ function get_wp_user_avatar_src($id_or_email="", $size="", $align="") {
   global $wpua_functions;
   return $wpua_functions->get_wp_user_avatar_src($id_or_email, $size, $align);
 }
-
-/**
- * Before wrapper for profile
- * @since 1.6
- * @uses do_action()
- */
-function wpua_before_avatar() {
-  do_action('wpua_before_avatar');
-}
-
 /**
  * Before avatar container
  */
@@ -95,15 +85,6 @@ function wpua_do_after_avatar() {
   <?php
 }
 add_action('wpua_after_avatar', 'wpua_do_after_avatar');
-
-/**
- * Before wrapper for profile in admin section
- * @since 1.9.4
- * @uses do_action()
- */
-function wpua_before_avatar_admin() {
-  do_action('wpua_before_avatar_admin');
-}
 /**
  * Before avatar container in admin section
  * @since 1.9.4
