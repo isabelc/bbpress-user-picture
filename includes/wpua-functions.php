@@ -60,15 +60,6 @@ function wpua_before_avatar() {
 }
 
 /**
- * After wrapper for profile
- * @since 1.6
- * @uses do_action()
- */
-function wpua_after_avatar() {
-  do_action('wpua_after_avatar');
-}
-
-/**
  * Before avatar container
  */
 function wpua_do_before_avatar() {
@@ -93,20 +84,12 @@ add_action('wpua_before_avatar', 'wpua_do_before_avatar');
 
 /**
  * After avatar container
- * @since 1.6
- * @uses bbp_is_edit()
- * @uses wpuf_has_shortcode()
  */
 function wpua_do_after_avatar() {
 ?>
   <?php if(class_exists('bbPress') && bbp_is_edit()) : // Add to bbPress profile with same style ?>
     </fieldset>
-  <?php elseif(class_exists('WPUF_Main') && wpuf_has_shortcode('wpuf_editprofile')) : // Add to WP User Frontend profile with same style ?>
-          </td>
-        </tr>
-      </table>
-    </fieldset>
-  <?php else : // Add to profile without table ?>
+  <?php else : ?>
     </div>
   <?php endif; ?>
   <?php
@@ -121,16 +104,6 @@ add_action('wpua_after_avatar', 'wpua_do_after_avatar');
 function wpua_before_avatar_admin() {
   do_action('wpua_before_avatar_admin');
 }
-
-/**
- * After wrapper for profile in admin section
- * @since 1.9.4
- * @uses do_action()
- */
-function wpua_after_avatar_admin() {
-  do_action('wpua_after_avatar_admin');
-}
-
 /**
  * Before avatar container in admin section
  * @since 1.9.4
