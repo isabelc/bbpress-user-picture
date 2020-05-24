@@ -3,18 +3,11 @@
  * Defines all of administrative, activation, and deactivation settings.
  *
  * @package WP User Avatar
- * @version 1.9.13
  */
 
 class WP_User_Avatar_Admin {
   /**
    * Constructor
-   * @since 1.8
-   * @uses bool $show_avatars
-   * @uses add_action()
-   * @uses add_filter()
-   * @uses register_activation_hook()
-   * @uses register_deactivation_hook()
    */
   public function __construct() {
     global $show_avatars;
@@ -41,8 +34,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Settings saved to wp_options
-   * @since 1.4
-   * @uses add_option()
    */
   public function wpua_options() {
     add_option('avatar_default_wp_user_avatar', "");
@@ -57,12 +48,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * On deactivation
-   * @since 1.4
-   * @uses int $blog_id
-   * @uses object $wpdb
-   * @uses get_blog_prefix()
-   * @uses get_option()
-   * @uses update_option()
    */
   public function wpua_deactivate() {
     global $blog_id, $wpdb;
@@ -79,9 +64,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Add options page and settings
-   * @since 1.4
-   * @uses add_menu_page()
-   * @uses add_submenu_page()
    */
   public function wpua_admin() {
     add_menu_page('bbPress User Picture', 'Avatars', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), WPUA_URL.'images/wpua-icon.png');
@@ -93,8 +75,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Checks if current page is settings page
-   * @since 1.8.3
-   * @uses string $pagenow
    * @return bool
    */
   public function wpua_is_menu_page() {
@@ -105,7 +85,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Media page
-   * @since 1.8
    */
   public function wpua_media_page() {
     require_once(WPUA_INC.'wpua-media-page.php');
@@ -126,10 +105,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Save per page setting
-   * @since 1.8.10
-   * @param int $status
-   * @param string $option
-   * @param int $value
    * @return int $status
    */
   public function wpua_set_media_screen_option($status, $option, $value) {
@@ -139,7 +114,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Options page
-   * @since 1.4
    */
   public function wpua_options_page() {
     require_once(WPUA_INC.'wpua-options-page.php');
@@ -221,9 +195,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Add default avatar_default to whitelist
-   * @since 1.4
-   * @param array $options
-   * @return array $options
    */
   public function wpua_whitelist_options($options) {
     $options['discussion'][] = 'avatar_default_wp_user_avatar';
@@ -232,7 +203,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Add actions links on plugin page
-   * @since 1.6.6
    * @param array $links
    * @param string $file
    * @return array $links
@@ -245,7 +215,6 @@ class WP_User_Avatar_Admin {
   }
   /**
    * Add column to Users table
-   * @since 1.4
    * @param array $columns
    * @return array
    */
@@ -269,7 +238,6 @@ class WP_User_Avatar_Admin {
 
   /**
    * Get list table
-   * @since 1.8
    * @param string $class
    * @param array $args
    * @return object
@@ -300,7 +268,6 @@ class WP_User_Avatar_Admin {
 
 /**
  * Initialize
- * @since 1.9.2
  */
 function wpua_admin_init() {
   global $wpua_admin;

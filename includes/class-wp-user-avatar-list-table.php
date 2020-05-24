@@ -3,24 +3,9 @@
  * Based on WP_Media_List_Table class.
  *
  * @package WP User Avatar
- * @version 1.9.13
  */
 
 class WP_User_Avatar_List_Table extends WP_List_Table {
-	/**
-	 * Constructor
-	 * @since 1.8
-	 * @param array $args
-	 * @uses array $avatars
-	 * @uses object $post
-	 * @uses int $wpua_avatar_default
-	 * @uses get_query_var()
-	 * @uses have_posts()
-	 * @uses the_post()
-	 * @uses wp_edit_attachments_query
-	 * @uses WP_Query()
-	 * @uses wp_reset_query()
-	 */
 	public function __construct($args = array()) {
 		global $avatars, $post, $wpua_avatar_default;
 		$paged = (get_query_var('page')) ? get_query_var('page') : 1;
@@ -53,8 +38,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Only users with edit_users capability can use this section
-	 * @since 1.8
-	 * @uses current_user_can()
 	 */
 	public function ajax_user_can() {
 		return current_user_can('edit_users');
@@ -62,12 +45,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Search form
-	 * @since 1.8
-	 * @param string $text
-	 * @param int $input_id
-	 * @uses _admin_search_query()
-	 * @uses has_items()
-	 * @uses submit_button()
 	 */
 	public function search_box($text, $input_id) {
 		if(empty($_REQUEST['s']) && !$this->has_items()) {
@@ -98,9 +75,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Return only avatars and paginate results
-	 * @since 1.8
-	 * @uses array $avatars
-	 * @uses wp_edit_attachments_query()
 	 */
 	public function prepare_items() {
 		global $avail_post_mime_types, $avatars, $lost, $post, $post_mime_types, $wp_query, $wpdb;
@@ -139,8 +113,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Current action from bulk actions list
-	 * @since 1.8
-	 * @uses current_action()
 	 * @return string|bool
 	 */
 	public function current_action() {
@@ -149,8 +121,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Checks whether table has items
-	 * @since 1.8
-	 * @uses have_posts()
 	 * @return bool
 	 */
 	public function has_items() {
@@ -166,7 +136,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Columns in this table
-	 * @since 1.8
 	 * @return array
 	 */
 	public function get_columns() {
@@ -182,7 +151,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Sortable columns in this table
-	 * @since 1.8
 	 * @return array
 	 */
 	public function get_sortable_columns() {
@@ -335,14 +303,6 @@ class WP_User_Avatar_List_Table extends WP_List_Table {
 
 	/**
 	 * Actions for rows in table
-	 * @since 1.8
-	 * @uses object $post
-	 * @uses string $att_title
-	 * @uses _draft_or_post_title()
-	 * @uses current_user_can()
-	 * @uses get_edit_post_link()
-	 * @uses get_permalink()
-	 * @uses wp_nonce_url()
 	 * @return array
 	 */
 	public function _get_row_actions($post, $att_title) {

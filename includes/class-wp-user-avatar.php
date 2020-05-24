@@ -3,7 +3,6 @@
  * Defines all profile and upload settings.
  *
  * @package WP User Avatar
- * @version 1.9.13
  */
 
 class WP_User_Avatar {
@@ -155,13 +154,9 @@ class WP_User_Avatar {
 
 	/**
 	 * Add upload error messages
-	 * @since 1.7.1
 	 * @param array $errors
 	 * @param bool $update
 	 * @param object $user
-	 * @uses int $wpua_upload_size_limit
-	 * @uses add()
-	 * @uses wp_upload_dir()
 	 */
 	public static function wpua_upload_errors($errors, $update, $user) {
 		global $wpua_upload_size_limit;
@@ -190,10 +185,7 @@ class WP_User_Avatar {
 
 	/**
 	 * Set upload size limit
-	 * @since 1.5
 	 * @param object $file
-	 * @uses int $wpua_upload_size_limit
-	 * @uses add_action()
 	 * @return object $file
 	 */
 	public function wpua_handle_upload_prefilter($file) {
@@ -202,7 +194,6 @@ class WP_User_Avatar {
 		if(!empty($size) && $size > $wpua_upload_size_limit) {
 			/**
 			 * Error handling that only appears on front pages
-			 * @since 1.7
 			 */
 			function wpua_file_size_error($errors, $update, $user) {
 				$errors->add('wpua_file_size', 'Memory exceeded. Please try another smaller file.');
@@ -339,11 +330,9 @@ class WP_User_Avatar {
 
 	/**
 	 * Check attachment is owned by user
-	 * @since 1.4
 	 * @param int $attachment_id
 	 * @param int $user_id
 	 * @param bool $wpua_author
-	 * @uses get_post()
 	 * @return bool 
 	 */
 	private function wpua_author($attachment_id, $user_id, $wpua_author=0) {
@@ -366,7 +355,6 @@ class WP_User_Avatar {
 
 /**
  * Initialize WP_User_Avatar
- * @since 1.8
  */
 function wpua_init() {
 	global $wp_user_avatar;

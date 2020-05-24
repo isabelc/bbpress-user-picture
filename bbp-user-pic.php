@@ -10,15 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if (!defined('ABSPATH')) exit;
-
-/**
- * Let's get started!
- */
 class WP_User_Avatar_Setup {
-  /**
-   * Constructor
-   * @since 1.9.2
-   */
   public function __construct() {
     $this->_define_constants();
     $this->_load_wp_includes();
@@ -27,7 +19,6 @@ class WP_User_Avatar_Setup {
 
   /**
    * Define paths
-   * @since 1.9.2
    */
   private function _define_constants() {
     define('WPUA_VERSION', '2.2.4');
@@ -40,8 +31,6 @@ class WP_User_Avatar_Setup {
 
   /**
    * WordPress includes used in plugin
-   * @since 1.9.2
-   * @uses is_admin()
    */
   private function _load_wp_includes() {
     if(!is_admin()) {

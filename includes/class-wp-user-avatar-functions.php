@@ -3,17 +3,9 @@
  * Core user functions.
  * 
  * @package WP User Avatar
- * @version 2.2.4
  */
 
 class WP_User_Avatar_Functions {
-  /**
-   * Constructor
-   * @since 1.8
-   * @uses add_filter()
-   * @uses register_activation_hook()
-   * @uses register_deactivation_hook()
-   */
   public function __construct() {
     add_filter('get_avatar', array($this, 'wpua_get_avatar_filter'), 10, 5);
 
@@ -192,11 +184,6 @@ class WP_User_Avatar_Functions {
     }
     // Enable get_avatar filter
     add_filter('get_avatar', array($wpua_functions, 'wpua_get_avatar_filter'), 10, 5);
-    /**
-     * Filter original avatar src
-     * @since 1.9
-     * @param string $default
-     */
     return $default;
   }
   /**
@@ -286,11 +273,9 @@ class WP_User_Avatar_Functions {
 
   /**
    * Return just the image src
-   * @since 1.1
    * @param int|string $id_or_email
    * @param int|string $size
    * @param string $align
-   * @uses get_wp_user_avatar()
    * @return string
    */
   public function get_wp_user_avatar_src($id_or_email="", $size="", $align="") {
@@ -308,7 +293,6 @@ class WP_User_Avatar_Functions {
 
 /**
  * Initialize
- * @since 1.9.2
  */
 function wpua_functions_init() {
   global $wpua_functions;

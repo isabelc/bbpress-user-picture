@@ -3,7 +3,6 @@
  * Settings only for subscribers and contributors.
  *
  * @package WP User Avatar
- * @version 1.9.13
  */
 
 class WP_User_Avatar_Subscriber {
@@ -25,7 +24,6 @@ class WP_User_Avatar_Subscriber {
 
   /**
    * Allow multipart data in form
-   * @since 1.4.1
    */
   public function wpua_add_edit_form_multipart_encoding() {
     echo ' enctype="multipart/form-data"';
@@ -33,8 +31,6 @@ class WP_User_Avatar_Subscriber {
 
   /**
    * Remove menu items
-   * @since 1.4
-   * @uses remove_menu_page()
    */
   public function wpua_subscriber_remove_menu_pages() {
     remove_menu_page('edit.php');
@@ -44,9 +40,6 @@ class WP_User_Avatar_Subscriber {
 
   /**
    * Remove menu bar items
-   * @since 1.5.1
-   * @uses object $wp_admin_bar
-   * @uses remove_menu()
    */
   public function wpua_subscriber_remove_menu_bar_items() {
     global $wp_admin_bar;
@@ -56,8 +49,6 @@ class WP_User_Avatar_Subscriber {
 
   /**
    * Remove dashboard items
-   * @since 1.4
-   * @uses remove_meta_box()
    */
   public function wpua_subscriber_remove_dashboard_widgets() {
     remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
@@ -100,7 +91,6 @@ class WP_User_Avatar_Subscriber {
 
 /**
  * Initialize
- * @since 1.9.5
  */
 function wpua_subscriber_init() {
   global $wpua_subscriber;

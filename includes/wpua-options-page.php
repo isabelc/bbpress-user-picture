@@ -3,7 +3,6 @@
  * Admin page to change plugin options.
  *
  * @package WP User Avatar
- * @version 1.9.13
  */
 
 global $show_avatars, $wpua_admin, $wpua_edit_avatar, $wpua_subscriber, $wpua_upload_size_limit;
