@@ -31,15 +31,12 @@ jQuery(function($) {
   
   // Store WP Existing User Avatar ID
   var wpuaEID = $('#wp-user-avatar-existing').val();
-  // Store WP Existing User Avatar src
-  var wpuaESrc = $('#wpua-preview-existing').find('img').attr('src');
+
   // Remove WP Existing User Avatar
   $('body').on('click', '#wpua-remove-existing', function(e) {
     e.preventDefault();
     $('#wpua-original-existing').remove();
     $('#wpua-remove-button-existing, #wpua-thumbnail-existing').hide();
-    $('#wpua-preview-existing').find('img:first').hide();
-    $('#wpua-preview-existing').prepend('<img id="wpua-original-existing" />');
     $('#wpua-original-existing').attr('src', wpua_custom.avatar_thumb);
     $('#wp-user-avatar-existing').val("");
     $('#wpua-original-existing, #wpua-undo-button-existing').show();
@@ -52,7 +49,6 @@ jQuery(function($) {
     $('#wpua-images-existing').removeAttr('style');
     $('#wpua-undo-button-existing').hide();
     $('#wpua-remove-button-existing, #wpua-thumbnail-existing').show();
-    $('#wpua-preview-existing').find('img:first').attr('src', wpuaSrc).show();
     $('#wp-user-avatar-existing').val(wpuaID);
     $('#wp_user_avatar_radio-existing').trigger('click');
   });

@@ -98,13 +98,10 @@ jQuery(function($) {
     }
     $('#your-profile').attr('enctype', 'multipart/form-data');
     var a = $('#wp-user-avatar-existing').val();
-    var b = $('#wpua-preview-existing').find('img').attr('src');
     $('body').on('click', '#wpua-remove-existing', function(e) {
         e.preventDefault();
         $('#wpua-original-existing').remove();
         $('#wpua-remove-button-existing, #wpua-thumbnail-existing').hide();
-        $('#wpua-preview-existing').find('img:first').hide();
-        $('#wpua-preview-existing').prepend('<img id="wpua-original-existing" />');
         $('#wpua-original-existing').attr('src', wpua_custom.avatar_thumb);
         $('#wp-user-avatar-existing').val("");
         $('#wpua-original-existing, #wpua-undo-button-existing').show();
@@ -116,7 +113,6 @@ jQuery(function($) {
         $('#wpua-images-existing').removeAttr('style');
         $('#wpua-undo-button-existing').hide();
         $('#wpua-remove-button-existing, #wpua-thumbnail-existing').show();
-        $('#wpua-preview-existing').find('img:first').attr('src', b).show();
         $('#wp-user-avatar-existing').val(a);
         $('#wp_user_avatar_radio').trigger('click')
     })
