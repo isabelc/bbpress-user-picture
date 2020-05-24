@@ -50,9 +50,9 @@ class WP_User_Avatar_Admin {
     add_option('avatar_default_wp_user_avatar', "");
     add_option('wp_user_avatar_edit_avatar', '1');
     add_option('wp_user_avatar_resize_crop', '0');
-    add_option('wp_user_avatar_resize_h', '96');
+    add_option('wp_user_avatar_resize_h', '100');
     add_option('wp_user_avatar_resize_upload', '0');
-    add_option('wp_user_avatar_resize_w', '96');
+    add_option('wp_user_avatar_resize_w', '100');
     add_option('wp_user_avatar_upload_size_limit', '0');
     update_option('avatar_default', 'wp_user_avatar');
   }
@@ -154,7 +154,6 @@ class WP_User_Avatar_Admin {
    */
   public function wpua_register_settings() {
     $settings = array();
-    $settings[] = register_setting('wpua-settings-group', 'avatar_rating');
     $settings[] = register_setting('wpua-settings-group', 'avatar_default');
     $settings[] = register_setting('wpua-settings-group', 'avatar_default_wp_user_avatar');
     $settings[] = register_setting('wpua-settings-group', 'show_avatars', 'intval');
