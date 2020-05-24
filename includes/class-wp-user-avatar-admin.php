@@ -28,9 +28,7 @@ class WP_User_Avatar_Admin {
     // Default avatar
     add_filter('default_avatar_select', array($this, 'wpua_add_default_avatar'), 10);
     add_filter('whitelist_options', array($this, 'wpua_whitelist_options'), 10);
-    // Additional plugin info
     add_filter('plugin_action_links', array($this, 'wpua_action_links'), 10, 2);
-    add_filter('plugin_row_meta', array($this, 'wpua_row_meta'), 10, 2);
     // Hide column in Users table if default avatars are enabled
     if((bool) $show_avatars == 0) {
       add_filter('manage_users_columns', array($this, 'wpua_add_column'), 10, 1);
@@ -240,26 +238,11 @@ class WP_User_Avatar_Admin {
    * @return array $links
    */
   public function wpua_action_links($links, $file) { 
-    if(basename(dirname($file)) == 'wp-user-avatar') {
+    if(basename(dirname($file)) == 'bbp-user-pic') {
       $links[] = '<a href="'.esc_url(add_query_arg(array('page' => 'wp-user-avatar'), admin_url('admin.php'))).'">Settings</a>';
     }
     return $links;
   }
-
-  /**
-   * Add row meta on plugin page
-   * @since 1.6.6
-   * @param array $links
-   * @param string $file
-   * @return array $links
-   */
-  public function wpua_row_meta($links, $file) {
-    if(basename(dirname($file)) == 'wp-user-avatar') {
-      $links[] = '<a href="http://wordpress.org/support/plugin/wp-user-avatar" target="_blank">Support Forums</a>';
-    }
-    return $links;
-  }
-
   /**
    * Add column to Users table
    * @since 1.4
