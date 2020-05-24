@@ -115,13 +115,11 @@ class WP_User_Avatar_Admin {
 
   /**
    * Avatars per page
-   * @since 1.8.10
-   * @uses add_screen_option()
    */
   public function wpua_media_screen_option() {
     $option = 'per_page';
     $args = array(
-      'label' => __('Avatars','wp-user-avatar'),
+      'label' => 'Avatars',
       'default' => 10,
       'option' => 'upload_per_page'
     );
@@ -178,13 +176,13 @@ class WP_User_Avatar_Admin {
     $avatar_list = "";
     // Set avatar defaults
     $avatar_defaults = array(
-      'mystery' => __('Mystery Man','wp-user-avatar'),
-      'blank' => __('Blank','wp-user-avatar'),
-      'gravatar_default' => __('Gravatar Logo','wp-user-avatar'),
-      'identicon' => __('Identicon (Generated)','wp-user-avatar'),
-      'wavatar' => __('Wavatar (Generated)','wp-user-avatar'),
-      'monsterid' => __('MonsterID (Generated)','wp-user-avatar'),
-      'retro' => __('Retro (Generated)','wp-user-avatar')
+      'mystery' => 'Mystery Man',
+      'blank' => 'Blank',
+      'gravatar_default' => 'Gravatar Logo',
+      'identicon' => 'Identicon (Generated)',
+      'wavatar' => 'Wavatar (Generated)',
+      'monsterid' => 'MonsterID (Generated)',
+      'retro' => 'Retro (Generated)'
     );
     // No Default Avatar, set to Mystery Man
     if(empty($avatar_default)) {
@@ -215,9 +213,9 @@ class WP_User_Avatar_Admin {
     // Add WPUA to list
     $wpua_list = "\n\t<label><input type='radio' name='avatar_default' id='wp_user_avatar_radio' value='wp_user_avatar'$selected_avatar /> ";
     $wpua_list .= preg_replace("/src='(.+?)'/", "src='\$1'", $avatar_thumb_img);
-    $wpua_list .= ' '.__('WP User Avatar', 'wp-user-avatar').'</label>';
-    $wpua_list .= '<p id="wpua-edit"><button type="button" class="button" id="wpua-add" name="wpua-add" data-avatar_default="true" data-title="'.__('Choose Image').': '.__('Default Avatar').'">'.__('Choose Image','wp-user-avatar').'</button>';
-    $wpua_list .= '<span id="wpua-remove-button"'.$hide_remove.'><a href="#" id="wpua-remove">'.__('Remove','wp-user-avatar').'</a></span><span id="wpua-undo-button"><a href="#" id="wpua-undo">'.__('Undo','wp-user-avatar').'</a></span></p>';
+    $wpua_list .= ' WP User Avatar</label>';
+    $wpua_list .= '<p id="wpua-edit"><button type="button" class="button" id="wpua-add" name="wpua-add" data-avatar_default="true" data-title="Choose Image: Default Avatar">Choose Image</button>';
+    $wpua_list .= '<span id="wpua-remove-button"'.$hide_remove.'><a href="#" id="wpua-remove">Remove</a></span><span id="wpua-undo-button"><a href="#" id="wpua-undo">Undo</a></span></p>';
     $wpua_list .= '<input type="hidden" id="wp-user-avatar" name="avatar_default_wp_user_avatar" value="'.$wpua_avatar_default.'">';
     $wpua_list .= '<div id="wpua-modal"></div>';
     return $wpua_list.'<div id="wp-avatars" style="display:none;">'.$avatar_list.'</div>';
@@ -243,7 +241,7 @@ class WP_User_Avatar_Admin {
    */
   public function wpua_action_links($links, $file) { 
     if(basename(dirname($file)) == 'wp-user-avatar') {
-      $links[] = '<a href="'.esc_url(add_query_arg(array('page' => 'wp-user-avatar'), admin_url('admin.php'))).'">'.__('Settings','wp-user-avatar').'</a>';
+      $links[] = '<a href="'.esc_url(add_query_arg(array('page' => 'wp-user-avatar'), admin_url('admin.php'))).'">Settings</a>';
     }
     return $links;
   }
@@ -257,7 +255,7 @@ class WP_User_Avatar_Admin {
    */
   public function wpua_row_meta($links, $file) {
     if(basename(dirname($file)) == 'wp-user-avatar') {
-      $links[] = '<a href="http://wordpress.org/support/plugin/wp-user-avatar" target="_blank">'.__('Support Forums','wp-user-avatar').'</a>';
+      $links[] = '<a href="http://wordpress.org/support/plugin/wp-user-avatar" target="_blank">Support Forums</a>';
     }
     return $links;
   }
@@ -269,7 +267,7 @@ class WP_User_Avatar_Admin {
    * @return array
    */
   public function wpua_add_column($columns) {
-    return $columns + array('wp-user-avatar' => __('Avatar','wp-user-avatar'));
+    return $columns + array('wp-user-avatar' => 'Avatar');
   }
 
   /**

@@ -120,30 +120,30 @@ class WP_User_Avatar {
 		<input type="hidden" name="wp-user-avatar" id="<?php echo ($user=='add-new-user') ? 'wp-user-avatar' : 'wp-user-avatar-existing'?>" value="<?php echo $wpua; ?>" />
 		<?php if($wp_user_avatar->wpua_is_author_or_above()) : // Button to launch Media Uploader ?>
 			
-			<p id="<?php echo ($user=='add-new-user') ? 'wpua-add-button' : 'wpua-add-button-existing'?>"><button type="button" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" name="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" data-title="<?php _e('Choose Image','wp-user-avatar'); ?>: <?php echo ( ! empty( $user->display_name ) ? $user->display_name:''); ?>"><?php _e('Choose Image','wp-user-avatar'); ?></button></p>
+			<p id="<?php echo ($user=='add-new-user') ? 'wpua-add-button' : 'wpua-add-button-existing'?>"><button type="button" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" name="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" data-title="Choose Image: <?php echo ( ! empty( $user->display_name ) ? $user->display_name:''); ?>">Choose Image</button></p>
 
 		<?php elseif(!$wp_user_avatar->wpua_is_author_or_above()) : // Upload button ?>
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-upload-button' : 'wpua-upload-button-existing'?>">
 				<input name="wpua-file" id="<?php echo ($user=='add-new-user') ? 'wpua-file' : 'wpua-file-existing'?>" type="file" />
-				<button type="submit" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-upload' : 'wpua-upload-existing'?>" name="submit" value="<?php _e('Upload','wp-user-avatar'); ?>"><?php _e('Upload','wp-user-avatar'); ?></button>
+				<button type="submit" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-upload' : 'wpua-upload-existing'?>" name="submit" value="Upload">Upload</button>
 			</p>
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-upload-messages' : 'wpua-upload-messages-existing'?>">
 				<span id="<?php echo ($user=='add-new-user') ? 'wpua-max-upload' : 'wpua-max-upload-existing'?>" class="small"><?php printf('Maximum upload file size: %dMB.', ($wpua_upload_size_limit / 1048576)); ?></span>
-				<span id="<?php echo ($user=='add-new-user') ? 'wpua-allowed-files' : 'wpua-allowed-files-existing'?>" class="small"><?php _e('Allowed Files','wp-user-avatar'); ?>: <?php _e('<code>jpg jpeg png gif</code>','wp-user-avatar'); ?></span>
+				<span id="<?php echo ($user=='add-new-user') ? 'wpua-allowed-files' : 'wpua-allowed-files-existing'?>" class="small">Allowed Files: <code>jpg jpeg png gif</code></span>
 			</p>
 		<?php endif; ?>
 		<div id="<?php echo ($user=='add-new-user') ? 'wpua-images' : 'wpua-images-existing'?>" class="<?php echo $hide_images; ?>">
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-thumbnail' : 'wpua-thumbnail-existing'?>">
 				<img src="<?php echo $avatar_thumbnail; ?>" alt="" />
-				<span class="description"><?php _e('Thumbnail','wp-user-avatar'); ?></span>
+				<span class="description">Thumbnail</span>
 			</p>
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-remove-button' : 'wpua-remove-button-existing'?>" class="<?php echo $hide_remove; ?>">
 				<button type="button" class="secondary-btn" id="<?php echo ($user=='add-new-user') ? 'wpua-remove' : 'wpua-remove-existing'?>" name="wpua-remove">Remove Image</button>
 				<?php if((bool) $wpua_edit_avatar == 1 && !$wp_user_avatar->wpua_is_author_or_above() && has_wp_user_avatar($current_user->ID) && $wp_user_avatar->wpua_author($wpua, $current_user->ID)) : // Edit button ?>
-					<span id="<?php echo ($user=='add-new-user') ? 'wpua-edit-attachment' : 'wpua-edit-attachment-existing'?>"><a href="<?php echo $edit_attachment_link; ?>" class="edit-attachment" target="_blank"><?php _e('Edit Image','wp-user-avatar'); ?></a></span>
+					<span id="<?php echo ($user=='add-new-user') ? 'wpua-edit-attachment' : 'wpua-edit-attachment-existing'?>"><a href="<?php echo $edit_attachment_link; ?>" class="edit-attachment" target="_blank">Edit Image</a></span>
 				<?php endif; ?>
 			</p>
-			<p id="<?php echo ($user=='add-new-user') ? 'wpua-undo-button' : 'wpua-undo-button-existing'?>"><button type="button" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-undo' : 'wpua-undo-existing'?>" name="wpua-undo"><?php _e('Undo','wp-user-avatar'); ?></button></p>
+			<p id="<?php echo ($user=='add-new-user') ? 'wpua-undo-button' : 'wpua-undo-button-existing'?>"><button type="button" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-undo' : 'wpua-undo-existing'?>" name="wpua-undo">Undo</button></p>
 		</div><?php 
 		if($is_admin) {
 			?></td></tr></table><?php
@@ -175,7 +175,7 @@ class WP_User_Avatar {
 			}
 			// Allow only JPG, GIF, PNG
 			if(!empty($type) && !preg_match('/(jpe?g|gif|png)$/i', $type)) {
-				$errors->add('wpua_file_type', __('This file is not an image. Please try another.','wp-user-avatar'));
+				$errors->add('wpua_file_type', 'This file is not an image. Please try another.');
 			}
 			// Upload size limit
 			if(!empty($size) && $size > $wpua_upload_size_limit) {
@@ -183,7 +183,7 @@ class WP_User_Avatar {
 			}
 			// Check if directory is writeable
 			if(!is_writeable($upload_dir['path'])) {
-				$errors->add('wpua_file_directory', sprintf(__('Unable to create directory %s. Is its parent directory writable by the server?','wp-user-avatar'), $upload_dir['path']));
+				$errors->add('wpua_file_directory', sprintf('Unable to create directory %s. Is its parent directory writable by the server?', $upload_dir['path']));
 			}
 		}
 	}
