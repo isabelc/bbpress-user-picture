@@ -62,9 +62,9 @@ class WP_User_Avatar {
 		$wpua_is_profile = 1;
 		$user = ($pagenow == 'user-edit.php' && isset($_GET['user_id'])) ? get_user_by('id', $_GET['user_id']) : $current_user;
 
-		// @todo now now remove
-		wp_enqueue_style('wp-user-avatar', WPUA_URL.'css/wp-user-avatar.css', "", null);
+		// @todo update all script handles to not conflict with WP User Avatar
 
+		wp_enqueue_style('wp-user-avatar', WPUA_URL.'css/wp-user-avatar.css', "", null);
 		wp_enqueue_script('jquery');
 		if($wp_user_avatar->wpua_is_author_or_above()) {
 			wp_enqueue_script('admin-bar');
@@ -118,17 +118,10 @@ class WP_User_Avatar {
 			?><h3>Avatar</h3><table class="form-table"><tr><th><label for="wp_user_avatar">Image</label></th>
 			<td><?php
 		} else {
-				?><fieldset id="bbp-user-pic" class="bbp-form"><legend>Image</legend><?php
+			?><fieldset id="bbp-user-pic" class="bbp-form"><legend>Image</legend><?php
 		}
 		?>
 		<input type="hidden" name="wp-user-avatar" id="<?php echo ($user=='add-new-user') ? 'wp-user-avatar' : 'wp-user-avatar-existing'?>" value="<?php echo $wpua; ?>" />
-		
-
-
-
-
-
-
 		<div id="<?php echo ($user=='add-new-user') ? 'wpua-images' : 'wpua-images-existing'?>" class="<?php echo $hide_images; ?>">
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-thumbnail' : 'wpua-thumbnail-existing'?>">
 				<img src="<?php echo $avatar_thumbnail; ?>" alt="" />
@@ -148,14 +141,14 @@ class WP_User_Avatar {
 			
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-add-button' : 'wpua-add-button-existing'?>"><button type="button" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" name="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" data-title="Choose Image: <?php echo ( ! empty( $user->display_name ) ? $user->display_name:''); ?>">Choose Image</button></p>
 
-		<?php elseif(!$wp_user_avatar->wpua_is_author_or_above()) : // Upload button ?>
-			<p id="<?php echo ($user=='add-new-user') ? 'wpua-upload-button' : 'wpua-upload-button-existing'?>">
-				<input name="wpua-file" id="<?php echo ($user=='add-new-user') ? 'wpua-file' : 'wpua-file-existing'?>" type="file" />
-				<button type="submit" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-upload' : 'wpua-upload-existing'?>" name="submit" value="Upload">Upload</button>
+		<?php else : // Upload button ?>
+			<p id="wpua-upload-button-existing">
+				<input name="wpua-file" id="wpua-file-existing" type="file" />
+				<button type="submit" class="button" id="wpua-upload-existing" name="submit" value="Upload">Upload</button>
 			</p>
-			<p id="<?php echo ($user=='add-new-user') ? 'wpua-upload-messages' : 'wpua-upload-messages-existing'?>">
-				<span id="<?php echo ($user=='add-new-user') ? 'wpua-max-upload' : 'wpua-max-upload-existing'?>" class="small">Uploading a new image will replace any previous image. Maximum upload file size: <?php echo ($wpua_upload_size_limit / 1048576); ?>MB.</span>
-				<span id="<?php echo ($user=='add-new-user') ? 'wpua-allowed-files' : 'wpua-allowed-files-existing'?>" class="small">Allowed Files: <code>jpg jpeg png gif</code></span>
+			<p id="wpua-upload-messages-existing">
+				<span id="wpua-max-upload-existing" class="small">Uploading a new image will replace any previous image.</span>
+				<span id="wpua-allowed-files-existing" class="small">Allowed Files: <code>jpg jpeg png gif</code>. Maximum upload file size: <?php echo ($wpua_upload_size_limit / 1048576); ?>MB.</span>
 			</p>
 		<?php endif;
 		if($is_admin) {
