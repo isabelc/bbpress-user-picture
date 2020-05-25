@@ -137,7 +137,7 @@ class WP_User_Avatar {
 			</p>
 			<p id="wpua-upload-messages-existing">
 				<span id="wpua-max-upload-existing" class="small">Uploading a new image will replace any previous image.</span>
-				<span id="wpua-allowed-files-existing" class="small">Allowed Files: <code>jpg jpeg png gif</code>. Maximum upload file size: <?php echo ($wpua_upload_size_limit / 1048576); ?>MB.</span>
+				<span id="wpua-allowed-files-existing" class="small">Maximum upload file size: <?php echo ($wpua_upload_size_limit / 1048576); ?>MB. Allowed Files: <code>jpg jpeg png gif</code></span>
 			</p>
 		<?php endif;
 		if($is_admin) {
