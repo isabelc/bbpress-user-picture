@@ -66,9 +66,9 @@ class WP_User_Avatar {
 		if($wp_user_avatar->wpua_is_author_or_above()) {
 			wp_enqueue_script('admin-bar');
 			wp_enqueue_media(array('post' => $post));
-			wp_enqueue_script('wp-user-avatar', WPUA_URL.'js/wp-user-avatar.js', array('jquery', 'media-editor'), WPUA_VERSION, true);
+			wp_enqueue_script('bbpup', WPUA_URL.'js/bbpup.js', array('jquery', 'media-editor'), null, true);
 		} else {
-			wp_enqueue_script('wp-user-avatar', WPUA_URL.'js/wp-user-avatar-user.js', array('jquery'), WPUA_VERSION, true);
+			wp_enqueue_script('bbpup', WPUA_URL.'js/bbpup-user.js', array('jquery'), null, true);
 		}
 		// Admin scripts
 		if($pagenow == 'options-discussion.php' || $wpua_admin->wpua_is_menu_page()) {
@@ -76,13 +76,12 @@ class WP_User_Avatar {
 			wp_enqueue_script('jquery-ui-slider');
 			wp_enqueue_style('bbpup-jqueryui', WPUA_URL.'css/jquery.ui.slider.css', "", null);
 			// Default avatar
-			wp_localize_script('wp-user-avatar', 'wpua_custom', array('avatar_thumb' => $mustache_admin));
-			// Settings control
-			wp_enqueue_script('wp-user-avatar-admin', WPUA_URL.'js/wp-user-avatar-admin.js', array('wp-user-avatar'), WPUA_VERSION, true);
-			wp_localize_script('wp-user-avatar-admin', 'wpua_admin', array('upload_size_limit' => $wpua_upload_size_limit, 'max_upload_size' => wp_max_upload_size()));
+			wp_localize_script('bbpup', 'wpua_custom', array('avatar_thumb' => $mustache_admin));
+			wp_enqueue_script('bbp-user-pic-admin', WPUA_URL.'js/bbpup-admin.js', array('bbpup'), null, true);
+			wp_localize_script('bbp-user-pic-admin', 'wpua_admin', array('upload_size_limit' => $wpua_upload_size_limit, 'max_upload_size' => wp_max_upload_size()));
 		} else {
 			// Original user avatar
-			wp_localize_script('wp-user-avatar', 'wpua_custom', array(
+			wp_localize_script('bbpup', 'wpua_custom', array(
 													'avatar_thumb' => $wpua_functions->wpua_get_avatar_original($user->user_email, 'medium')));
 		}
 	}
