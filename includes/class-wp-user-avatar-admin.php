@@ -6,12 +6,7 @@
  */
 
 class WP_User_Avatar_Admin {
-	/**
-	 * Constructor
-	 */
 	public function __construct() {
-		// Initialize default settings
-		register_activation_hook(WPUA_DIR.'bbp-user-pic.php', array($this, 'wpua_options'));
 		// Admin menu settings
 		add_action('admin_menu', array($this, 'wpua_admin'));
 		add_action('admin_init', array($this, 'wpua_register_settings'));
@@ -22,21 +17,6 @@ class WP_User_Avatar_Admin {
 		// Media states
 		add_filter('display_media_states', array($this, 'wpua_add_media_state'), 10, 1);
 	}
-
-	/**
-	 * Settings saved to wp_options
-	 */
-	public function wpua_options() {
-		add_option('avatar_default_wp_user_avatar', "");
-		add_option('wp_user_avatar_edit_avatar', '1');
-		add_option('wp_user_avatar_resize_crop', '0');
-		add_option('wp_user_avatar_resize_h', '100');
-		add_option('wp_user_avatar_resize_upload', '0');
-		add_option('wp_user_avatar_resize_w', '100');
-		add_option('wp_user_avatar_upload_size_limit', '0');
-		update_option('avatar_default', 'wp_user_avatar');
-	}
-
 	/**
 	 * On deactivation
 	 */

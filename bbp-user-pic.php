@@ -2,7 +2,7 @@
 /*
 Plugin Name: bbPress User Picture
 Description: Let bbPress forum users upload their own profile image.
-Version: 1.0.alpha-6
+Version: 1.0.alpha-7
 Requires PHP: 7.2
 Author: Isabel Castillo
 License: GPL v2 or later
@@ -60,3 +60,16 @@ class WP_User_Avatar_Setup {
  * Initialize
  */
 new WP_User_Avatar_Setup();
+// default settings
+function bbp_user_pic_activate() {
+    add_option('avatar_default_wp_user_avatar', "");
+    add_option('wp_user_avatar_edit_avatar', '1');
+    add_option('wp_user_avatar_resize_crop', '0');
+    add_option('wp_user_avatar_resize_h', '100');
+    add_option('wp_user_avatar_resize_upload', '0');
+    add_option('wp_user_avatar_resize_w', '100');
+    add_option('wp_user_avatar_upload_size_limit', '0');
+    update_option('avatar_default', 'wp_user_avatar');
+
+}
+register_activation_hook(__FILE__, 'bbp_user_pic_activate');
