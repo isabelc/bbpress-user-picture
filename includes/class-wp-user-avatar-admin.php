@@ -98,7 +98,7 @@ class WP_User_Avatar_Admin {
 		$settings = array();
 		$settings[] = register_setting('wpua-settings-group', 'avatar_default');
 		$settings[] = register_setting('wpua-settings-group', 'avatar_default_wp_user_avatar');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', 'intval');
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', array('sanitize_callback' => array($this, 'subscriber_capability_edit_posts')));// @test now
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_crop', array('sanitize_callback' => 'intval'));
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_h', array('sanitize_callback' => 'intval'));
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_upload', array('sanitize_callback' => 'intval'));
@@ -106,7 +106,6 @@ class WP_User_Avatar_Admin {
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_upload_size_limit', array('sanitize_callback' => 'intval'));
 		return $settings;
 	}
-
 	/**
 	 * Add default avatar
 	 * @return string
@@ -144,6 +143,25 @@ class WP_User_Avatar_Admin {
 	public function wpua_whitelist_options($options) {
 		$options['discussion'][] = 'avatar_default_wp_user_avatar';
 		return $options;
+	}
+	public function subscriber_capability_edit_posts($input) {
+		// if setting changed, change subscriber capability
+		$old_val = (int) get_option('wp_user_avatar_edit_avatar');
+		$new_val = (int) $input;
+		if($old_val !== $new_val) {
+		    global $blog_id, $wpdb, $wpua_edit_avatar;
+	    	$wp_user_roles = $wpdb->get_blog_prefix($blog_id).'user_roles';
+	    	$user_roles = get_option($wp_user_roles);
+			if(1 === $new_val) {
+				$user_roles['subscriber']['capabilities']['edit_posts'] = true;
+			} else {
+				if(isset($user_roles['subscriber']['capabilities']['edit_posts'])){
+					unset($user_roles['subscriber']['capabilities']['edit_posts']);
+				}
+			}
+			update_option($wp_user_roles, $user_roles);
+		}
+	    return $new_val;
 	}
 	/**
 	 * Add actions links on plugin page

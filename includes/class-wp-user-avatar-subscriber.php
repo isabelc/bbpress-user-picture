@@ -19,7 +19,6 @@ class WP_User_Avatar_Subscriber {
       add_action('wp_dashboard_setup', array($this, 'wpua_subscriber_remove_dashboard_widgets'));
       add_action('admin_init', array($this, 'wpua_subscriber_offlimits'));
     }
-    add_action('admin_init', array($this, 'wpua_subscriber_capability'));
   }
 
   /**
@@ -69,23 +68,6 @@ class WP_User_Avatar_Subscriber {
       do_action('admin_page_access_denied');
       wp_die('You do not have sufficient permissions to access this page.');
     }
-  }
-
-  /**
-   * Give subscribers edit_posts capability
-   */
-  public function wpua_subscriber_capability() {
-    global $blog_id, $wpdb, $wpua_edit_avatar;
-    $wp_user_roles = $wpdb->get_blog_prefix($blog_id).'user_roles';
-    $user_roles = get_option($wp_user_roles);
-    if((bool) $wpua_edit_avatar == 1) {
-      $user_roles['subscriber']['capabilities']['edit_posts'] = true;
-    } else {
-     if(isset($user_roles['subscriber']['capabilities']['edit_posts'])){
-     	unset($user_roles['subscriber']['capabilities']['edit_posts']);
-     }
-    }
-    update_option($wp_user_roles, $user_roles);
   }
 }
 
