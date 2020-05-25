@@ -20,15 +20,15 @@ $wpua_avatar_default = get_option('avatar_default_wp_user_avatar');
 // Booleans
 $wpua_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 // Default avatar 100x100
-$mustache_original = WPUA_URL.'images/bbpup.png';
+$mustache_original = BBPUP_URL.'images/bbpup.png';
 // Default avatar 60x60
-$mustache_medium = WPUA_URL.'images/bbpup-60x60.png';
+$mustache_medium = BBPUP_URL.'images/bbpup-60x60.png';
 // Default avatar 50x50
-$mustache_thumbnail = WPUA_URL.'images/bbpup-50x50.png';
+$mustache_thumbnail = BBPUP_URL.'images/bbpup-50x50.png';
 // Default avatar 40x40
-$mustache_avatar = WPUA_URL.'images/bbpup-40x40.png';
+$mustache_avatar = BBPUP_URL.'images/bbpup-40x40.png';
 // Default avatar 30x30
-$mustache_admin = WPUA_URL.'images/bbpup-30x30.png';
+$mustache_admin = BBPUP_URL.'images/bbpup-30x30.png';
 // User upload size limit in bytes
 $wpua_upload_size_limit = get_option('wp_user_avatar_upload_size_limit');
 if($wpua_upload_size_limit == 0 || $wpua_upload_size_limit > wp_max_upload_size()) {
