@@ -21,12 +21,8 @@ class WP_User_Avatar_Setup {
    * Define paths
    */
   private function _define_constants() {
-    define('WPUA_VERSION', '2.2.4');
-    define('WPUA_FOLDER', basename(dirname(__FILE__)));
-    define('WPUA_DIR', plugin_dir_path(__FILE__));
-    define('WPUA_INC', WPUA_DIR.'includes'.'/');
-    define('WPUA_URL', plugin_dir_url(WPUA_FOLDER).WPUA_FOLDER.'/');
-    define('WPUA_INC_URL', WPUA_URL.'includes'.'/');
+    define('BBPUP_INC', plugin_dir_path(__FILE__).'includes'.'/');
+    define('BBPUP_URL', plugin_dir_url(__FILE__).'/');
   }
 
   /**
@@ -51,12 +47,12 @@ class WP_User_Avatar_Setup {
    * Load WP User Avatar
    */
   private function _load_wpua() {
-    require_once(WPUA_INC.'wpua-globals.php');
-    require_once(WPUA_INC.'wpua-functions.php');
-    require_once(WPUA_INC.'class-wp-user-avatar-admin.php');
-    require_once(WPUA_INC.'class-wp-user-avatar.php');
-    require_once(WPUA_INC.'class-wp-user-avatar-functions.php');
-    require_once(WPUA_INC.'class-wp-user-avatar-subscriber.php');
+    require_once(BBPUP_INC.'wpua-globals.php');
+    require_once(BBPUP_INC.'wpua-functions.php');
+    require_once(BBPUP_INC.'class-wp-user-avatar-admin.php');
+    require_once(BBPUP_INC.'class-wp-user-avatar.php');
+    require_once(BBPUP_INC.'class-wp-user-avatar-functions.php');
+    require_once(BBPUP_INC.'class-wp-user-avatar-subscriber.php');
   }
 }
 

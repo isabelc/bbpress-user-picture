@@ -57,7 +57,7 @@ class WP_User_Avatar_Admin {
 	 * Add options page and settings
 	 */
 	public function wpua_admin() {
-		add_menu_page('bbPress User Picture', 'Avatars', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), WPUA_URL.'images/wpua-icon.png');
+		add_menu_page('bbPress User Picture', 'Avatars', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'), BBPUP_URL.'images/wpua-icon.png');
 		add_submenu_page('wp-user-avatar', 'Settings', 'Settings', 'manage_options', 'wp-user-avatar', array($this, 'wpua_options_page'));
 		$hook = add_submenu_page('wp-user-avatar', 'Library', 'Library', 'manage_options', 'wp-user-avatar-library', array($this, 'wpua_media_page'));
 		add_action("load-$hook", array($this, 'wpua_media_screen_option'));
@@ -78,7 +78,7 @@ class WP_User_Avatar_Admin {
 	 * Media page
 	 */
 	public function wpua_media_page() {
-		require_once(WPUA_INC.'wpua-media-page.php');
+		require_once BBPUP_INC.'wpua-media-page.php';
 	}
 
 	/**
@@ -107,7 +107,7 @@ class WP_User_Avatar_Admin {
 	 * Options page
 	 */
 	public function wpua_options_page() {
-		require_once(WPUA_INC.'wpua-options-page.php');
+		require_once BBPUP_INC.'wpua-options-page.php';
 	}
 
 	/**
@@ -183,7 +183,7 @@ class WP_User_Avatar_Admin {
 	 * @return object
 	 */
 	public function _wpua_get_list_table($class, $args = array()) {
-		require_once(WPUA_INC.'class-wp-user-avatar-list-table.php');
+		require_once BBPUP_INC.'class-wp-user-avatar-list-table.php';
 		$args['screen'] = 'wp-user-avatar';
 		return new $class($args);
 	}

@@ -61,23 +61,23 @@ class WP_User_Avatar {
 		// This is a profile page
 		$wpua_is_profile = 1;
 		$user = ($pagenow == 'user-edit.php' && isset($_GET['user_id'])) ? get_user_by('id', $_GET['user_id']) : $current_user;
-		wp_enqueue_style('bbp-user-pic', WPUA_URL.'css/bbpup.200524.css', "", null);
+		wp_enqueue_style('bbp-user-pic', BBPUP_URL.'css/bbpup.200524.css', "", null);
 		wp_enqueue_script('jquery');
 		if($wp_user_avatar->wpua_is_author_or_above()) {
 			wp_enqueue_script('admin-bar');
 			wp_enqueue_media(array('post' => $post));
-			wp_enqueue_script('bbpup', WPUA_URL.'js/bbpup.js', array('jquery', 'media-editor'), null, true);
+			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup.js', array('jquery', 'media-editor'), null, true);
 		} else {
-			wp_enqueue_script('bbpup', WPUA_URL.'js/bbpup-user.js', array('jquery'), null, true);
+			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup-user.js', array('jquery'), null, true);
 		}
 		// Admin scripts
 		if($pagenow == 'options-discussion.php' || $wpua_admin->wpua_is_menu_page()) {
 			// Size limit slider
 			wp_enqueue_script('jquery-ui-slider');
-			wp_enqueue_style('bbpup-jqueryui', WPUA_URL.'css/jquery.ui.slider.css', "", null);
+			wp_enqueue_style('bbpup-jqueryui', BBPUP_URL.'css/jquery.ui.slider.css', "", null);
 			// Default avatar
 			wp_localize_script('bbpup', 'wpua_custom', array('avatar_thumb' => $mustache_admin));
-			wp_enqueue_script('bbp-user-pic-admin', WPUA_URL.'js/bbpup-admin.js', array('bbpup'), null, true);
+			wp_enqueue_script('bbp-user-pic-admin', BBPUP_URL.'js/bbpup-admin.js', array('bbpup'), null, true);
 			wp_localize_script('bbp-user-pic-admin', 'wpua_admin', array('upload_size_limit' => $wpua_upload_size_limit, 'max_upload_size' => wp_max_upload_size()));
 		} else {
 			// Original user avatar
