@@ -61,10 +61,7 @@ class WP_User_Avatar {
 		// This is a profile page
 		$wpua_is_profile = 1;
 		$user = ($pagenow == 'user-edit.php' && isset($_GET['user_id'])) ? get_user_by('id', $_GET['user_id']) : $current_user;
-
-		// @todo update all script handles to not conflict with WP User Avatar
-
-		wp_enqueue_style('wp-user-avatar', WPUA_URL.'css/wp-user-avatar.css', "", null);
+		wp_enqueue_style('bbp-user-pic', WPUA_URL.'css/bbpup.200524.css', "", null);
 		wp_enqueue_script('jquery');
 		if($wp_user_avatar->wpua_is_author_or_above()) {
 			wp_enqueue_script('admin-bar');
@@ -77,7 +74,7 @@ class WP_User_Avatar {
 		if($pagenow == 'options-discussion.php' || $wpua_admin->wpua_is_menu_page()) {
 			// Size limit slider
 			wp_enqueue_script('jquery-ui-slider');
-			wp_enqueue_style('wp-user-avatar-jqueryui', WPUA_URL.'css/jquery.ui.slider.css', "", null);
+			wp_enqueue_style('bbpup-jqueryui', WPUA_URL.'css/jquery.ui.slider.css', "", null);
 			// Default avatar
 			wp_localize_script('wp-user-avatar', 'wpua_custom', array('avatar_thumb' => $mustache_admin));
 			// Settings control
