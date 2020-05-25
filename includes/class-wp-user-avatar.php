@@ -57,7 +57,7 @@ class WP_User_Avatar {
 	 * Media Uploader
 	 */
 	public static function wpua_media_upload_scripts($user="") {
-		global $current_user, $mustache_admin, $pagenow, $post, $show_avatars, $wp_user_avatar, $wpua_admin, $wpua_functions, $wpua_is_profile, $wpua_upload_size_limit;
+		global $current_user, $mustache_admin, $pagenow, $post, $wp_user_avatar, $wpua_admin, $wpua_functions, $wpua_is_profile, $wpua_upload_size_limit;
 		// This is a profile page
 		$wpua_is_profile = 1;
 		$user = ($pagenow == 'user-edit.php' && isset($_GET['user_id'])) ? get_user_by('id', $_GET['user_id']) : $current_user;
@@ -85,8 +85,8 @@ class WP_User_Avatar {
 			wp_localize_script('wp-user-avatar-admin', 'wpua_admin', array('upload_size_limit' => $wpua_upload_size_limit, 'max_upload_size' => wp_max_upload_size()));
 		} else {
 			// Original user avatar
-			$avatar_medium_src = (bool) $show_avatars == 1 ? $wpua_functions->wpua_get_avatar_original($user->user_email, 'medium') : includes_url().'images/blank.gif';
-			wp_localize_script('wp-user-avatar', 'wpua_custom', array('avatar_thumb' => $avatar_medium_src));
+			wp_localize_script('wp-user-avatar', 'wpua_custom', array(
+													'avatar_thumb' => $wpua_functions->wpua_get_avatar_original($user->user_email, 'medium')));
 		}
 	}
 
@@ -94,20 +94,13 @@ class WP_User_Avatar {
 	 * Add to edit user profile
 	 */
 	public static function wpua_action_show_user_profile($user) {
-		global $blog_id, $current_user, $show_avatars, $wpdb, $wp_user_avatar, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit;
+		global $blog_id, $current_user, $wpdb, $wp_user_avatar, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit;
 		$has_wp_user_avatar = has_wp_user_avatar(@$user->ID);
 		// Get WPUA attachment ID
 		$wpua = get_user_meta(@$user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);
 		// Show remove button if WPUA is set
 		$hide_remove = !$has_wp_user_avatar ? 'wpua-hide' : "";
-		// Hide image tags if show avatars is off
-		$hide_images = !$has_wp_user_avatar && (bool) $show_avatars == 0 ? 'wpua-no-avatars' : "";
-		// If avatars are enabled, get original avatar image or show blank
-		$avatar_medium_src = (bool) $show_avatars == 1 ? $wpua_functions->wpua_get_avatar_original(@$user->user_email, 'medium') : includes_url().'images/blank.gif';
-		
-		// Check if user has wp_user_avatar, if not show image from above
-		// $avatar_medium = $has_wp_user_avatar ? get_wp_user_avatar_src($user->ID, 'medium') : $avatar_medium_src;
-
+		$avatar_medium_src = $wpua_functions->wpua_get_avatar_original(@$user->user_email, 'medium');
 		// Check if user has wp_user_avatar, if not show image from above
 		$avatar_thumbnail = $has_wp_user_avatar ? get_wp_user_avatar_src($user->ID, 96) : $avatar_medium_src;
 		$edit_attachment_link = esc_url(add_query_arg(array('post' => $wpua, 'action' => 'edit'), admin_url('post.php')));
@@ -122,7 +115,7 @@ class WP_User_Avatar {
 		}
 		?>
 		<input type="hidden" name="wp-user-avatar" id="<?php echo ($user=='add-new-user') ? 'wp-user-avatar' : 'wp-user-avatar-existing'?>" value="<?php echo $wpua; ?>" />
-		<div id="<?php echo ($user=='add-new-user') ? 'wpua-images' : 'wpua-images-existing'?>" class="<?php echo $hide_images; ?>">
+		<div id="<?php echo ($user=='add-new-user') ? 'wpua-images' : 'wpua-images-existing'?>">
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-thumbnail' : 'wpua-thumbnail-existing'?>">
 				<img src="<?php echo $avatar_thumbnail; ?>" alt="" />
 				<span class="description">Thumbnail</span>

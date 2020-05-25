@@ -5,7 +5,7 @@
  * @package WP User Avatar
  */
 
-global $show_avatars, $wpua_admin, $wpua_edit_avatar, $wpua_subscriber, $wpua_upload_size_limit;
+global $wpua_admin, $wpua_edit_avatar, $wpua_subscriber, $wpua_upload_size_limit;
 $updated = false;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
   $updated = true;
@@ -74,21 +74,10 @@ $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
     ?>
     <table class="form-table">
       <tr valign="top">
-      <th scope="row">Avatar Display</th>
-      <td>
-        <fieldset>
-          <legend class="screen-reader-text"><span>Avatar Display</span></legend>
-          <label for="show_avatars">
-          <input type="checkbox" id="show_avatars" name="show_avatars" value="1" <?php checked($show_avatars, 1); ?> />
-          Show Avatars </label>
-        </fieldset>
-        </td>
-      </tr>
-      <tr valign="top">
         <th scope="row">Default Avatar </th>
         <td class="defaultavatarpicker">
           <fieldset>
-            <legend class="screen-reader-text"><span>Default Avatar</span></legend>For users without a custom avatar of their own, you can display a generic logo.<br />
+            <legend class="screen-reader-text"><span>Default Avatar</span></legend>For users without a custom avatar of their own, you can display a generic avatar.<br />
             <?php echo $wpua_admin->wpua_add_default_avatar(); ?>
           </fieldset>
         </td>
