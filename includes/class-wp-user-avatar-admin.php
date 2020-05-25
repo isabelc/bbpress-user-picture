@@ -19,6 +19,7 @@ class WP_User_Avatar_Admin {
 	}
 	/**
 	 * On deactivation
+	 * @todo decide if this is still needed and if so, move it to mail file.
 	 */
 	public function wpua_deactivate() {
 		global $blog_id, $wpdb;
@@ -98,11 +99,11 @@ class WP_User_Avatar_Admin {
 		$settings[] = register_setting('wpua-settings-group', 'avatar_default');
 		$settings[] = register_setting('wpua-settings-group', 'avatar_default_wp_user_avatar');
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', 'intval');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_crop', 'intval');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_h', 'intval');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_upload', 'intval');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_w', 'intval');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_upload_size_limit', 'intval');
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_crop', array('sanitize_callback' => 'intval'));
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_h', array('sanitize_callback' => 'intval'));
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_upload', array('sanitize_callback' => 'intval'));
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_w', array('sanitize_callback' => 'intval'));
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_upload_size_limit', array('sanitize_callback' => 'intval'));
 		return $settings;
 	}
 
