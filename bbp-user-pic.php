@@ -21,8 +21,8 @@ class WP_User_Avatar_Setup {
    * Define paths
    */
   private function _define_constants() {
-    define('BBPUP_INC', plugin_dir_path(__FILE__).'includes'.'/');
-    define('BBPUP_URL', plugin_dir_url(__FILE__).'/');
+    define('BBPUP_INC', plugin_dir_path(__FILE__).'includes/');
+    define('BBPUP_URL', plugin_dir_url(__FILE__));
   }
 
   /**
