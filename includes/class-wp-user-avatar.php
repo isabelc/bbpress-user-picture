@@ -58,13 +58,14 @@ class WP_User_Avatar {
 	 * Media Uploader
 	 */
 	public static function wpua_media_upload_scripts($user="") {
-		global $current_user, $mustache_admin, $pagenow, $post, $wp_user_avatar, $wpua_admin, $wpua_functions, $wpua_is_profile, $wpua_upload_size_limit;
+		global $current_user, $pagenow, $wp_user_avatar, $wpua_admin, $wpua_functions, $wpua_is_profile;
 		// This is a profile page
 		$wpua_is_profile = 1;
 		$user = ($pagenow == 'user-edit.php' && isset($_GET['user_id'])) ? get_user_by('id', $_GET['user_id']) : $current_user;
 		wp_enqueue_style('bbp-user-pic', BBPUP_URL.'css/bbpup.200524.css', "", null);
 		wp_enqueue_script('jquery');
 		if($wp_user_avatar->wpua_is_author_or_above()) {
+			global $post;
 			wp_enqueue_script('admin-bar');
 			wp_enqueue_media(array('post' => $post));
 			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup.js', array('jquery', 'media-editor'), null, true);
@@ -73,6 +74,7 @@ class WP_User_Avatar {
 		}
 		// Admin scripts
 		if($pagenow == 'options-discussion.php' || $wpua_admin->wpua_is_menu_page()) {
+			global $mustache_admin, $wpua_upload_size_limit;
 			// Size limit slider
 			wp_enqueue_script('jquery-ui-slider');
 			wp_enqueue_style('bbpup-jqueryui', BBPUP_URL.'css/jquery.ui.slider.css', "", null);
