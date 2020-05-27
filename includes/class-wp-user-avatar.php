@@ -95,7 +95,8 @@ class WP_User_Avatar {
 	 * Add to edit user profile
 	 */
 	public static function wpua_action_show_user_profile($user) {
-		global $blog_id, $current_user, $wpdb, $wp_user_avatar, $wpua_edit_avatar, $wpua_functions, $wpua_upload_size_limit;
+		$can_edit_avatar = get_option('wp_user_avatar_edit_avatar');
+		global $blog_id, $current_user, $wpdb, $wp_user_avatar, $wpua_functions, $wpua_upload_size_limit;
 		$has_wp_user_avatar = has_wp_user_avatar(@$user->ID);
 		// Get WPUA attachment ID
 		$wpua = get_user_meta(@$user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar', true);
@@ -123,7 +124,7 @@ class WP_User_Avatar {
 			</p>
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-remove-button' : 'wpua-remove-button-existing'?>" class="<?php echo $hide_remove; ?>">
 				<button type="button" class="secondary-btn" id="<?php echo ($user=='add-new-user') ? 'wpua-remove' : 'wpua-remove-existing'?>" name="wpua-remove">Remove Image</button>
-				<?php if((bool) $wpua_edit_avatar == 1 && !$wp_user_avatar->wpua_is_author_or_above() && has_wp_user_avatar($current_user->ID) && $wp_user_avatar->wpua_author($wpua, $current_user->ID)) : // Edit button ?>
+				<?php if((bool) $can_edit_avatar == 1 && !$wp_user_avatar->wpua_is_author_or_above() && has_wp_user_avatar($current_user->ID) && $wp_user_avatar->wpua_author($wpua, $current_user->ID)) : // Edit button ?>
 					<span id="<?php echo ($user=='add-new-user') ? 'wpua-edit-attachment' : 'wpua-edit-attachment-existing'?>"><a href="<?php echo $edit_attachment_link; ?>" class="edit-attachment" target="_blank">Edit Image</a></span>
 				<?php endif; ?>
 			</p>

@@ -5,7 +5,6 @@
 // Define global variables
 global $avatar_default,
        $wpua_avatar_default,
-       $wpua_edit_avatar,
        $mustache_original,
        $mustache_medium,
        $mustache_thumbnail,
@@ -17,8 +16,6 @@ global $avatar_default,
 $avatar_default = get_option('avatar_default');
 // Attachment ID of default avatar
 $wpua_avatar_default = get_option('avatar_default_wp_user_avatar');
-// Booleans
-$wpua_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 // Default avatar 100x100
 $mustache_original = BBPUP_URL.'images/bbpup.png';
 // Default avatar 60x60

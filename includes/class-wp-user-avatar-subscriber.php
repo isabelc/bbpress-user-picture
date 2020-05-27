@@ -69,9 +69,10 @@ class WP_User_Avatar_Subscriber {
 	 * Restrict access to pages
 	 */
 	public function wpua_subscriber_offlimits() {
-		global $pagenow, $wpua_edit_avatar;
+		global $pagenow;
+		$can_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 		$offlimits = array('edit.php', 'edit-comments.php', 'post-new.php', 'tools.php');
-		if((bool) $wpua_edit_avatar != 1) {
+		if((bool) $can_edit_avatar != 1) {
 			array_push($offlimits, 'post.php');
 		}
 		if(in_array($pagenow, $offlimits)) {

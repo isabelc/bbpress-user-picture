@@ -5,7 +5,7 @@
  * @package WP User Avatar
  */
 
-global $wpua_admin, $wpua_edit_avatar, $wpua_subscriber, $wpua_upload_size_limit;
+global $wpua_admin, $wpua_subscriber, $wpua_upload_size_limit;
 $updated = false;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
   $updated = true;
@@ -25,6 +25,7 @@ if($wpua_upload_size_limit > 1024) {
 $wpua_upload_size_limit_with_units = (int) $wpua_upload_size_limit.'KB';
 $wpua_resize_upload = get_option('wp_user_avatar_resize_upload');
 $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
+$can_edit_avatar = get_option('wp_user_avatar_edit_avatar');
 ?>
 <div class="wrap">
   <h2>bbPress User Picture</h2>
@@ -50,7 +51,7 @@ $hide_resize = (bool) $wpua_resize_upload != 1 ? ' style="display:none;"' : "";
               </fieldset>
               <fieldset>
                 <label for="wp_user_avatar_edit_avatar">
-                  <input name="wp_user_avatar_edit_avatar" type="checkbox" id="wp_user_avatar_edit_avatar" value="1" '.checked($wpua_edit_avatar, 1, 0).' /> Allow users to edit avatars </label>
+                  <input name="wp_user_avatar_edit_avatar" type="checkbox" id="wp_user_avatar_edit_avatar" value="1" '.checked($can_edit_avatar, 1, 0).' /> Allow users to edit avatars </label>
               </fieldset>
               <fieldset>
                 <label for="wp_user_avatar_resize_upload">
