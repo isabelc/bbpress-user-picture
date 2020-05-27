@@ -18,23 +18,6 @@ class WP_User_Avatar_Admin {
 		add_filter('display_media_states', array($this, 'wpua_add_media_state'), 10, 1);
 	}
 	/**
-	 * On deactivation
-	 * @todo decide if this is still needed and if so, move it to mail file.
-	 */
-	public function wpua_deactivate() {
-		global $blog_id, $wpdb;
-		$wp_user_roles = $wpdb->get_blog_prefix($blog_id).'user_roles';
-		// Get user roles and capabilities
-		$user_roles = get_option($wp_user_roles);
-		// Remove subscribers edit_posts capability
-		unset($user_roles['subscriber']['capabilities']['edit_posts']);
-		update_option($wp_user_roles, $user_roles);
-		// Reset all default avatars to Mystery Man
-		update_option('avatar_default', 'mystery');
-	
-	}
-
-	/**
 	 * Add options page and settings
 	 */
 	public function wpua_admin() {
@@ -149,17 +132,12 @@ class WP_User_Avatar_Admin {
 		$old_val = (int) get_option('wp_user_avatar_edit_avatar');
 		$new_val = (int) $input;
 		if($old_val !== $new_val) {
-		    global $blog_id, $wpdb, $wpua_edit_avatar;
-	    	$wp_user_roles = $wpdb->get_blog_prefix($blog_id).'user_roles';
-	    	$user_roles = get_option($wp_user_roles);
+		    $role = get_role('subscriber');
 			if(1 === $new_val) {
-				$user_roles['subscriber']['capabilities']['edit_posts'] = true;
+				$role->add_cap('edit_posts');
 			} else {
-				if(isset($user_roles['subscriber']['capabilities']['edit_posts'])){
-					unset($user_roles['subscriber']['capabilities']['edit_posts']);
-				}
+				$role->remove_cap('edit_posts'); 
 			}
-			update_option($wp_user_roles, $user_roles);
 		}
 	    return $new_val;
 	}
