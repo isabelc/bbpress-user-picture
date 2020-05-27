@@ -10,7 +10,6 @@ class WP_User_Avatar {
 	 * Constructor
 	 */
 	public function __construct() {
-		global $pagenow, $wpua_admin;
 		// Add WPUA to profile for users with permission
 		if($this->wpua_is_author_or_above() || is_user_logged_in()) {
 			// Profile functions and scripts
@@ -20,15 +19,17 @@ class WP_User_Avatar {
 			add_action('edit_user_profile_update', array($this, 'wpua_action_process_option_update'));
 			add_action('user_new_form', array($this, 'wpua_action_show_user_profile'));
 			add_action('user_register', array($this, 'wpua_action_process_option_update'));
-			// Admin scripts
-			$pages = array('profile.php', 'options-discussion.php', 'user-edit.php', 'user-new.php');
-			if(in_array($pagenow, $pages) || $wpua_admin->wpua_is_menu_page()) {
-				add_action('admin_enqueue_scripts', array($this, 'wpua_media_upload_scripts'));
-			}
 			// Front pages
 			if(!is_admin()) {
 				add_action('show_user_profile', array('wp_user_avatar', 'wpua_media_upload_scripts'));
 				add_action('edit_user_profile', array('wp_user_avatar', 'wpua_media_upload_scripts'));
+			} else {
+				// Admin only
+				global $pagenow, $wpua_admin;
+				add_action('admin_enqueue_scripts', array($this, 'admin_only_scripts'));
+				if(in_array($pagenow, array('profile.php', 'options-discussion.php', 'user-edit.php', 'user-new.php')) || $wpua_admin->wpua_is_menu_page()) {
+					add_action('admin_enqueue_scripts', array($this, 'wpua_media_upload_scripts'));
+				}
 			}
 			if(!$this->wpua_is_author_or_above()) {
 				// Upload errors
@@ -82,10 +83,12 @@ class WP_User_Avatar {
 		} else {
 			// Original user avatar
 			wp_localize_script('bbpup', 'wpua_custom', array(
-													'avatar_thumb' => $wpua_functions->wpua_get_avatar_original($user->user_email, 'medium')));
+													'default' => $wpua_functions->wpua_get_avatar_original($user->user_email, 'medium')));
 		}
 	}
-
+	public static function admin_only_scripts(){
+		wp_enqueue_style('bbpup-admin-style', BBPUP_URL. 'css/bbpup-admin.css', array(), null);
+	}
 	/**
 	 * Add to edit user profile
 	 */
@@ -113,7 +116,7 @@ class WP_User_Avatar {
 		<input type="hidden" name="wp-user-avatar" id="<?php echo ($user=='add-new-user') ? 'wp-user-avatar' : 'wp-user-avatar-existing'?>" value="<?php echo $wpua; ?>" />
 		<div id="<?php echo ($user=='add-new-user') ? 'wpua-images' : 'wpua-images-existing'?>">
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-thumbnail' : 'wpua-thumbnail-existing'?>">
-				<img src="<?php echo $avatar_thumbnail; ?>" alt="" />
+				<img id="preview-thumb" src="<?php echo $avatar_thumbnail; ?>" alt="" />
 				<span class="description">Thumbnail</span>
 			</p>
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-remove-button' : 'wpua-remove-button-existing'?>" class="<?php echo $hide_remove; ?>">
@@ -132,7 +135,11 @@ class WP_User_Avatar {
 
 		<?php else : // Upload button ?>
 
-			<p id="wpua-upload-button-existing"><div id="wpua-upload_wrap"><input name="wpua-file" id="wpua-file-existing" type="file" /></div><button type="submit" class="button" id="wpua-upload-existing" name="submit" value="Upload">Upload</button></p>
+			<div id="wpua-upload-button-existing">
+				<p id="wpua-upload_wrap"><input name="wpua-file" id="wpua-file-existing" type="file" /></p>
+
+					<button type="submit" class="button" id="wpua-upload-existing" name="submit" value="Upload">Upload</button></div>
+
 			<p id="wpua-upload-messages-existing">
 				<span id="wpua-max-upload-existing" class="small">Uploading a new image will replace any previous image.</span>
 				<span id="wpua-allowed-files-existing" class="small">Maximum upload file size: <?php echo ($wpua_upload_size_limit / 1048576); ?>MB. Allowed Files: <code>jpg jpeg png gif</code></span>
