@@ -131,10 +131,8 @@ class WP_User_Avatar {
 			<p id="<?php echo ($user=='add-new-user') ? 'wpua-add-button' : 'wpua-add-button-existing'?>"><button type="button" class="button" id="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" name="<?php echo ($user=='add-new-user') ? 'wpua-add' : 'wpua-add-existing'?>" data-title="Choose Image: <?php echo ( ! empty( $user->display_name ) ? $user->display_name:''); ?>">Choose Image</button></p>
 
 		<?php else : // Upload button ?>
-			<p id="wpua-upload-button-existing">
-				<input name="wpua-file" id="wpua-file-existing" type="file" />
-				<button type="submit" class="button" id="wpua-upload-existing" name="submit" value="Upload">Upload</button>
-			</p>
+
+			<p id="wpua-upload-button-existing"><div id="wpua-upload_wrap"><input name="wpua-file" id="wpua-file-existing" type="file" /></div><button type="submit" class="button" id="wpua-upload-existing" name="submit" value="Upload">Upload</button></p>
 			<p id="wpua-upload-messages-existing">
 				<span id="wpua-max-upload-existing" class="small">Uploading a new image will replace any previous image.</span>
 				<span id="wpua-allowed-files-existing" class="small">Maximum upload file size: <?php echo ($wpua_upload_size_limit / 1048576); ?>MB. Allowed Files: <code>jpg jpeg png gif</code></span>
@@ -160,10 +158,6 @@ class WP_User_Avatar {
 			$size = $_FILES['wpua-file']['size'];
 			$type = $_FILES['wpua-file']['type'];
 			$upload_dir = wp_upload_dir();
-			if($_FILES['wpua-file']['error'] && empty($size) && empty($type)) {
-				$errors->add('wpua_file_size', sprintf('Please try again. Image cannot be larger than %dMB.', ($wpua_upload_size_limit / 1048576)));
-				return;
-			}
 			// Allow only JPG, GIF, PNG
 			if(!empty($type) && !preg_match('/(jpe?g|gif|png)$/i', $type)) {
 				$errors->add('wpua_file_type', 'This file is not an image. Please try another.');
