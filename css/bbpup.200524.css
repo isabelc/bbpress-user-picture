@@ -1,22 +1,28 @@
 #wpua-file-existing{
 	color:#555d66;
-	background-color: #f7f7f7;
 }
+
+#wpua-upload_wrap{
+  background: #f8f8f8;
+  padding: 8px
+}
+
 #wpua-remove-existing{
-		line-height: 36px;
+	line-height: 36px;
 	height: 36px;
 }
 
 #wpua-upload-existing {
 	display: block;
-	margin: 30px 0 16px;
+	margin: 28px 0 16px;
 }
-#wpua-errors, #wpua-readable-size-error, .wpua-error { color: #c00 !important; font-weight: 700 !important; }
-#wpua-readable-size-error, #wpua-undo-button, #wpua-undo-button-existing { display: none; }
-#wpua-preview { margin-right: 10px; }
-#wpua-preview, #wpua-thumbnail, #wpua-thumbnail-existing { display: inline-block; text-align: center; vertical-align: top; }
-#wpua-preview img, #wpua-thumbnail img, #wpua-thumbnail-existing img { max-height: 96px; border: 1px solid #dfdfdf; display: block; }
-.defaultavatarpicker #wpua-preview { width: 32px; height: 32px; margin-right: 0; display: inline-block; overflow: hidden; vertical-align: middle; }
-.defaultavatarpicker #wpua-preview img { width: 32px; height: auto; border: 0; }
+
+#wpua-undo-button, #wpua-undo-button-existing { display: none; }
+
+#wpua-thumbnail-existing { display: inline-block; text-align: center; vertical-align: top; }
+
+#preview-thumb { max-height: 96px; border: 1px solid #dfdfdf; display: block; }
+
 #wpua-upload-messages-existing span { display: block; }
+
 .wpua-hide { display: none !important; }
