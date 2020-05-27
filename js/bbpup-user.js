@@ -7,57 +7,39 @@ jQuery(function($) {
 		$("#wpua-upload-existing").prop('disabled', false); 
 	});
 	
-	// Add enctype to form with JavaScript as backup
-	$('#your-profile').attr('enctype', 'multipart/form-data');
-	// Store WP User Avatar ID
-	var wpuaID = $('#wp-user-avatar').val();
-	// Store WP User Avatar src
-	var wpuaSrc = $('#wpua-preview').find('img').attr('src');
-	// Remove WP User Avatar
-	$('body').on('click', '#wpua-remove', function(e) {
-		e.preventDefault();
-		$('#wpua-original').remove(); // @todo don't think i need original stuff anymore since i removed it
-		$('#wpua-remove-button, #wpua-thumbnail').hide();
-		$('#wpua-preview').find('img:first').hide();
-		$('#wpua-preview').prepend('<img id="wpua-original" />');
-		$('#wpua-original').attr('src', wpua_custom.avatar_thumb);
-		$('#wp-user-avatar').val("");
-		$('#wpua-original, #wpua-undo-button').show();
-		$('#wp_user_avatar_radio').trigger('click');
-	});
-	// Undo WP User Avatar
-	$('body').on('click', '#wpua-undo', function(e) {
-		e.preventDefault();
-		$('#wpua-original').remove();
-		$('#wpua-images').removeAttr('style');
-		$('#wpua-undo-button').hide();
-		$('#wpua-remove-button, #wpua-thumbnail').show();
-		$('#wpua-preview').find('img:first').attr('src', wpuaSrc).show();
-		$('#wp-user-avatar').val(wpuaID);
-		$('#wp_user_avatar_radio').trigger('click');
-	});
-	
-	// Store WP Existing User Avatar ID
+	// @test still need all css?
+
+	// Store Existing User Avatar ID
 	var wpuaEID = $('#wp-user-avatar-existing').val();
+
+	// Store existing User Avatar src
+	var bbpupEsrc = document.getElementById('preview-thumb').src;
 
 	// Remove WP Existing User Avatar
 	$('body').on('click', '#wpua-remove-existing', function(e) {
 		e.preventDefault();
-		$('#wpua-original-existing').remove();
-		$('#wpua-remove-button-existing, #wpua-thumbnail-existing').hide();
-		$('#wpua-original-existing').attr('src', wpua_custom.avatar_thumb);
-		$('#wp-user-avatar-existing').val("");
-		$('#wpua-original-existing, #wpua-undo-button-existing').show();
-		$('#wp_user_avatar_radio-existing').trigger('click');
+	
+		$('#wpua-remove-button-existing').hide();
+
+		$('#wp-user-avatar-existing').val('');
+
+		$('#wpua-undo-button-existing').show();
+
+		$('#preview-thumb').attr('src', wpua_custom.default);
+
 	});
+
 	// Undo WP Existing User Avatar
 	$('body').on('click', '#wpua-undo-existing', function(e) {
 		e.preventDefault();
-		$('#wpua-original-existing').remove();
-		$('#wpua-images-existing').removeAttr('style');
+		
 		$('#wpua-undo-button-existing').hide();
-		$('#wpua-remove-button-existing, #wpua-thumbnail-existing').show();
-		$('#wp-user-avatar-existing').val(wpuaID);
-		$('#wp_user_avatar_radio-existing').trigger('click');
+
+		$('#wpua-remove-button-existing').show();
+
+		$('#wp-user-avatar-existing').val(wpuaEID);
+
+		$('#preview-thumb').attr('src', bbpupEsrc);
+
 	});
 });
