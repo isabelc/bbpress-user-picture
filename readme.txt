@@ -159,7 +159,7 @@ For Administrators, WP User Avatar adds a column with avatar thumbnails to your 
 == Changelog ==
 
 = 1.0 =
-* Initial release
+* Initial release, forked from WP User Avatar and modified.
 
 == Upgrade Notice ==
 
