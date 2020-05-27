@@ -98,7 +98,7 @@ class WP_User_Avatar_Admin {
 		$settings = array();
 		$settings[] = register_setting('wpua-settings-group', 'avatar_default');
 		$settings[] = register_setting('wpua-settings-group', 'avatar_default_wp_user_avatar');
-		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', array('sanitize_callback' => array($this, 'subscriber_capability_edit_posts')));// @test now
+		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_edit_avatar', array('sanitize_callback' => array($this, 'subscriber_capability_edit_posts')));
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_crop', array('sanitize_callback' => 'intval'));
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_h', array('sanitize_callback' => 'intval'));
 		$settings[] = register_setting('wpua-settings-group', 'wp_user_avatar_resize_upload', array('sanitize_callback' => 'intval'));

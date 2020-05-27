@@ -7,8 +7,6 @@ jQuery(function($) {
 		$("#wpua-upload-existing").prop('disabled', false); 
 	});
 	
-	// @test still need all css?
-
 	// Store Existing User Avatar ID
 	var wpuaEID = $('#wp-user-avatar-existing').val();
 
