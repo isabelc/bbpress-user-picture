@@ -68,9 +68,9 @@ class WP_User_Avatar {
 			global $post;
 			wp_enqueue_script('admin-bar');
 			wp_enqueue_media(array('post' => $post));
-			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup.js', array('jquery', 'media-editor'), null, true);
+			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup.min.js', array('jquery', 'media-editor'), null, true);
 		} else {
-			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup-user.js', array('jquery'), null, true);
+			wp_enqueue_script('bbpup', BBPUP_URL.'js/bbpup-user.min.js', array('jquery'), null, true);
 		}
 		// Admin scripts
 		if($pagenow == 'options-discussion.php' || $wpua_admin->wpua_is_menu_page()) {
@@ -80,7 +80,7 @@ class WP_User_Avatar {
 			wp_enqueue_style('bbpup-jqueryui', BBPUP_URL.'css/jquery.ui.slider.css', "", null);
 			// Default avatar
 			wp_localize_script('bbpup', 'wpua_custom', array('avatar_thumb' => $mustache_admin));
-			wp_enqueue_script('bbp-user-pic-admin', BBPUP_URL.'js/bbpup-admin.js', array('bbpup'), null, true);
+			wp_enqueue_script('bbp-user-pic-admin', BBPUP_URL.'js/bbpup-admin.min.js', array('bbpup'), null, true);
 			wp_localize_script('bbp-user-pic-admin', 'wpua_admin', array('upload_size_limit' => $wpua_upload_size_limit, 'max_upload_size' => wp_max_upload_size()));
 		} else {
 			// Original user avatar
